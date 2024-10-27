@@ -6,8 +6,13 @@ class DashboardController extends Users{
          
         $userModel = new Users();
         $userData = $userModel->getUserById($_SESSION['user_id']);
-         
-        // Render the view with the data
-        View::render('dashboard', $userData);
+         if($userData["role"] == "student"){
+            View::render('student', $userData);
+         }else if($userData["role"] == "admin"){
+            View::render('dashboard', $userData);
+         }else{
+            View::render('error');
+         }
+
     }
 }

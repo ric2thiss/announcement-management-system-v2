@@ -48,6 +48,17 @@ Route::get('/dashboard', function(){
     require_once('./Controller/DasboardController.php');
     DashboardController::show();
 });
+Route::post('/dashboard', function(){
+    require_once('./Controller/AnnouncementController.php');
+    // DashboardController::show();
+    AnnouncementController::post();
+});
+
+// Route::get('/student', function(){
+//     // require_once('./Controller/StudentController.php');
+//     // StudentController::show();
+//     echo "Student Page";
+// });
 
 
 

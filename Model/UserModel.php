@@ -51,6 +51,11 @@ class Users extends Database {
             session_start();
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["email"] = $user["email"];
+            if($user["role"] == "admin"){
+                $_SESSION["role"] = "admin";
+            }else if($user["role"] == "student"){
+                $_SESSION["role"] = "student";
+            }
             return true; 
         }
 
@@ -64,4 +69,33 @@ class Users extends Database {
         $stmt->execute(['id' => $userId]);
         return $stmt->fetch(); // Returns the user data as an associative array
     }
+
+    function createPost($post_what, $post_who, $post_where, $post_when, $post_content){
+        $conn = $this->Connect();
+
+        $query = "INSERT INTO posts(post_what, post_who, post_where, post_when, post_content, id) 
+                VALUES(:post_what, :post_who, :post_where, :post_when, :post_content, :id)";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':post_what', $post_what);
+        $stmt->bindParam(':post_who', $post_who);
+        $stmt->bindParam(':post_where', $post_where);
+        $stmt->bindParam(':post_when', $post_when);
+        $stmt->bindParam(':post_content', $post_content);
+        $stmt->bindParam(':id', $_SESSION["user_id"]);
+        
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+        // if($result){
+        //     echo json_encode(["message" => "Created a post successfully", "status"=>"success"]);
+        // }else{
+        //     echo json_encode(["message" => "Failed to create a post", "status"=>"error"]);
+        // }
+
+    }
+
+
 }

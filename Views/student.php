@@ -110,46 +110,7 @@
                     </div>
                  </div>
                 <!-- Create Announcement -->
-                <div class="bg-white p-6 rounded-lg shadow mb-8">
-                    <h2 class="text-xl font-bold mb-4">Create Announcement</h2>
-                    <!-- <div class="flex items-center space-x-4 ">  
-                        CREATE Announcement
-                    </div> -->
-                    <hr class="my-5">
-                    <form id="myForm" action="./dashboard" method="POST" onsubmit="syncQuillContent()">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-                            
-                            <div class="flex flex-col">
-                                <label for="what" class="mb-2 font-medium text-gray-700">What:</label>
-                                <input type="text" id="what" name="post_what" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'What'">
-                            </div>
-                            
-                            <div class="flex flex-col">
-                                <label for="who" class="mb-2 font-medium text-gray-700">Who:</label>
-                                <input type="text" id="who" name="post_who" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Who'">
-                            </div>
-                            
-                            <div class="flex flex-col">
-                                <label for="where" class="mb-2 font-medium text-gray-700">Where:</label>
-                                <input type="text" id="where" name="post_where" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Where'">
-                            </div>
-                            
-                            <div class="flex flex-col">
-                                <label for="when" class="mb-2 font-medium text-gray-700">When:</label>
-                                <input type="text" id="when" name="post_when" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'When'">
-                            </div>
-                        </div>
-                    
-                    <!-- Create the editor container -->
-                        <textarea name="post_content" id="post_content" style="display:none;"></textarea>
-                        <div id="editor">
-                            
-                        </div>
-                        <input name="submit" type="submit"  value="Post" id="post" class="my-3 px-5 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out">
-                    </form>
 
-                
-                </div>
             </div>
 
             <!-- Pinned Announcement Section (Sticky) -->
@@ -232,26 +193,26 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <!-- Initialize Quill editor -->
     <script>
-        // getUserData();
-        // async function getUserData(){
-        //     const res = await fetch("User.php");
-        //     if(!res.ok){
-        //         throw new Error("Network response was not ok");
-        //     }
-        //     const data = await res.json();
-        //     console.log(data);
-        //     // Check if user is valid or currently loggedin or exist
-        //     if(data.status === "error"){
-        //         window.location.href = data.route;
-        //     }
-        //     // console.log(data);
-        //     const {firstname, middleinitial, lastname, department, program, month_name, time_only} = data
-        //     document.getElementById("user-name").textContent = `${firstname} ${middleinitial}. ${lastname}`;
-        //     document.getElementById("program").textContent = `${program}`;
-        //     document.getElementById("month_name").textContent = `${month_name}`;
-        //     document.getElementById("time_only").textContent = `${time_only}`;
+        getUserData();
+        async function getUserData(){
+            const res = await fetch("User.php");
+            if(!res.ok){
+                throw new Error("Network response was not ok");
+            }
+            const data = await res.json();
+            console.log(data);
+            // Check if user is valid or currently loggedin or exist
+            if(data.status === "error"){
+                window.location.href = data.route;
+            }
+            // console.log(data);
+            const {firstname, middleinitial, lastname, department, program, month_name, time_only} = data
+            document.getElementById("user-name").textContent = `${firstname} ${middleinitial}. ${lastname}`;
+            document.getElementById("program").textContent = `${program}`;
+            document.getElementById("month_name").textContent = `${month_name}`;
+            document.getElementById("time_only").textContent = `${time_only}`;
             
-        // }
+        }
 
 
         const quill = new Quill('#editor', {
@@ -265,71 +226,68 @@
                 ]
             }
         });
-        function syncQuillContent() {
-            document.getElementById('post_content').value = quill.root.innerHTML;
+
+
+
+        const postBtn = document.getElementById("post")
+
+
+        // Get form
+        document.getElementById("myForm").onsubmit = (event)=>{
+            event.preventDefault();
+            // console.log(quill.root.innerHTML)
+            const what = document.getElementById("what").value
+            const who = document.getElementById("who").value
+            const where = document.getElementById("where").value
+            const when = document.getElementById("when").value
+            const content = quill.root.innerHTML;
+
+            const post_data = {
+               what,
+               who,
+               where,
+               when,
+               content
+            }
+
+            console.log(post_data)
+
+
+
+            fetch("Create.php", {
+                method : "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(post_data)
+            })
+            .then(res => {
+                if(!res.ok){
+                     throw new Error("Network response was not ok");
+                }
+                return res.json()
+            })
+            .then(data => {
+                // alert(data.message)
+                if(data.status === "success"){
+                    document.getElementById("myForm").reset();
+                    quill.setContents([]);
+                }
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            })
+
+            post();
         }
 
 
-
-        // const postBtn = document.getElementById("post")
-
-
-        // // Get form
-        // document.getElementById("myForm").onsubmit = (event)=>{
-        //     event.preventDefault();
-        //     // console.log(quill.root.innerHTML)
-        //     const what = document.getElementById("what").value
-        //     const who = document.getElementById("who").value
-        //     const where = document.getElementById("where").value
-        //     const when = document.getElementById("when").value
-        //     const content = quill.root.innerHTML;
-
-        //     const post_data = {
-        //        what,
-        //        who,
-        //        where,
-        //        when,
-        //        content
-        //     }
-
-        //     console.log(post_data)
-
-
-
-        //     fetch("Create.php", {
-        //         method : "POST",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify(post_data)
-        //     })
-        //     .then(res => {
-        //         if(!res.ok){
-        //              throw new Error("Network response was not ok");
-        //         }
-        //         return res.json()
-        //     })
-        //     .then(data => {
-        //         // alert(data.message)
-        //         if(data.status === "success"){
-        //             document.getElementById("myForm").reset();
-        //             quill.setContents([]);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('There has been a problem with your fetch operation:', error);
-        //     })
-
-        //     post();
-        // }
-
-
-        // async function post(){
-        //     const res = await fetch("getpostcontroller.php");
-        //     const data = await res.json();
-        //     console.log(data)
-        //     document.getElementById("post-count").textContent = data;
-        // }
+        async function post(){
+            const res = await fetch("getpostcontroller.php");
+            const data = await res.json();
+            console.log(data)
+            document.getElementById("post-count").textContent = data;
+        }
 
     </script>
 </body>
