@@ -84,7 +84,7 @@
             <!-- Sign Up Link -->
             <p class="mt-6 text-sm text-center text-gray-600">
                 Don't have an account?
-                <a href="#" class="text-yellow-500 font-medium hover:text-yellow-600">Sign up</a>
+                <a href="./register" class="text-yellow-500 font-medium hover:text-yellow-600">Sign up</a>
             </p>
         </div>
     </main>

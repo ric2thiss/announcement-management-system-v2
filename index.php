@@ -24,6 +24,13 @@ Route::get('/register', function() {
     echo "Registration Page";
 });
 
+Route::get('/logout', function(){
+    session_unset();
+    session_destroy();
+    header("Location: ./login"); 
+    exit(); 
+});
+
 // Route::get('/dashboard', function(){
 //     $userData = ["user_id"=>$_SESSION["user_id"], "user_email"=>$_SESSION["email"]];
 //     Middleware::Authenticate();

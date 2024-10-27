@@ -21,7 +21,9 @@ class Users extends Database {
     }
 
     public function getUserById($userId) {
-        $stmt = $this->Connect()->prepare("SELECT * FROM users_account WHERE id = :id");
+        $stmt = $this->Connect()->prepare("SELECT *,DATE(created) AS date_only,           
+        TIME_FORMAT(created, '%h:%i:%s %p') AS time_only,  
+        MONTHNAME(created) AS month_name   FROM users_account WHERE id = :id");
         $stmt->execute(['id' => $userId]);
         return $stmt->fetch(); // Returns the user data as an associative array
     }

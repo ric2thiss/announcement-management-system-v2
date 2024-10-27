@@ -68,15 +68,15 @@
                         <img src="./assets/profile.jpg" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">
                             <div>
-                                <h3 class="font-bold" id="user-name"><?php echo htmlspecialchars($data['firstname']); ?></h3>
-                                <p class="text-gray-500"><span id="program"></span> · <span id="month_name"></span> <span id="time_only"></span></p>
+                                <h3 class="font-bold" id="user-name"><?php echo $data["firstname"] . " " . $data["middleinitial"] . ". " . $data["lastname"]; ?></h3>
+                                <p class="text-gray-500"><span id="program"><?= $data["program"]?></span> · <span id="month_name"><?=$data["month_name"]?></span> <span id="time_only"><?=$data["time_only"]?></span></p>
                             </div>
                             <div>
                                 <a href="">Edit</a>
                                 <span class="mx-4"> | </span>
                                 <a href="">Settings</a>
                                 <span class="mx-4"> | </span>
-                                <a href="logout.php">Logout</a>
+                                <a href="./logout">Logout</a>
                             </div>
                         </div>
                     </div>
