@@ -21,7 +21,9 @@ Route::get('/login', function() {
 });
 
 Route::get('/register', function() {
-    echo "Registration Page";
+    // echo "Registration Page";
+    require_once('./Controller/RegisterController.php');
+    RegisterController::register();
 });
 
 Route::get('/logout', function(){

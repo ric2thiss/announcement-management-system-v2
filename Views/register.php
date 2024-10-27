@@ -32,11 +32,11 @@
         <div class="bg-white shadow-lg rounded-lg p-8 max-w-xl w-full">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Create an Account</h2>
 
-            <form id="signUpForm" class="space-y-4">
+            <form action="./register" id="signUpForm" class="space-y-4">
                 <!-- ID Number -->
                 <div>
                     <label for="id-number" class="block font-semibold text-gray-700 mb-1">ID Number</label>
-                    <input type="text" id="id-number" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Enter your ID" required>
+                    <input type="number" id="id-number" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Enter your ID" required>
                 </div>
 
                 <!-- Name Fields -->
@@ -50,27 +50,22 @@
                         <input type="text" id="last-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Last Name" required>
                     </div>
                 </div>
-
-                <div>
-                    <label for="middle-initial" class="block font-semibold text-gray-700 mb-1">Middle Initial</label>
-                    <input type="text" id="middle-initial" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="M.I.">
-                </div>
-
-                <!-- School Email -->
-                <div>
-                    <label for="school-email" class="block font-semibold text-gray-700 mb-1">School Email</label>
-                    <input type="email" id="school-email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="example@school.edu" required>
-                </div>
-
-                <!-- Address Fields (Compact with Flex) -->
-                <div>
-                    <label for="address" class="block font-semibold text-gray-700 mb-1">Address</label>
-                    <div class="flex space-x-2">
-                        <input type="text" id="purok" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Purok" required>
-                        <input type="text" id="barangay" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Barangay" required>
-                        <input type="text" id="zip-code" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Zip" required>
-                        <input type="text" id="city" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="City" required>
+                <!-- M.I and Email -->
+                <div class="flex space-x-4">
+                    <div class="w-2/12">
+                        <label for="middleinitial" class="block font-semibold text-gray-700 mb-1">M.I</label>
+                        <input type="text" id="middleinitial" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="eg. L" required>
                     </div>
+                    <div class="w-10/12">
+                        <label for="last-name" class="block font-semibold text-gray-700 mb-1">Email</label>
+                        <input type="text" id="last-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="john.doe@csucc.edu.ph" required>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="school-email" class="block font-semibold text-gray-700 mb-1">Password</label>
+                    <input type="email" id="school-email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="example@school.edu" required>
                 </div>
 
                 <!-- Department Dropdown -->
@@ -91,7 +86,31 @@
                         <option value="">Select Program</option>
                     </select>
                 </div>
+                <!-- contactnumber -->
+                <div>
+                    <label for="contactnumber" class="block font-semibold text-gray-700 mb-1">Contact Number</label>
+                    <input type="number" id="contactnumber" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="09123808107" required>
+                </div>
 
+
+                <!-- Address Fields (Compact with Flex) -->
+                <div>
+                    <label for="address" class="block font-semibold text-gray-700 mb-1">Address</label>
+                    <div class="flex space-x-2">
+                        <input type="text" id="purok" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Purok" required>
+                        <input type="text" id="barangay" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Barangay" required>
+                        <input type="text" id="city" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="City" required>
+                        <input type="text" id="zip-code" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Zip" required>
+                    </div>
+                </div>
+                <!-- Sex -->
+                <div>
+                    <label for="department" class="block font-semibold text-gray-700 mb-1">Sex</label>
+                    <select id="department" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
                 <!-- Submit Button -->
                 <button type="submit" class="w-full py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-200 ease-in-out focus:ring-2 focus:ring-yellow-400">Sign Up</button>
             </form>
