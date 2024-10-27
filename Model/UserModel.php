@@ -16,8 +16,9 @@ class Users extends Database {
             // hash the password 
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $query = "INSERT INTO users_account(idnumber, firstname, lastname, middleinitial, email, password, program, department, contactnumber, purok, barangay, city, province, zip)
-                      VALUES(idnumber =:idnumber, firstname =:firstname, lastname =:lastname, middleinitial= :middleinitial, email= :email, password= :password, program= :program, department= :department,
-                      contactnumber= :contactnumber, purok= :purok, barangay= :barangay, city= :city, province= :province, zip= :zip)";
+                      VALUES(:idnumber, :firstname, :lastname, :middleinitial, :email, :password, :program, :department, :contactnumber, :purok, :barangay, :city, :province, :zip)";
+
+                      
 
             $stmt = $this->Connect()->prepare($query);
             $stmt->bindParam(":idnumber",$idnumber);

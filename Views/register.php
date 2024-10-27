@@ -32,81 +32,84 @@
         <div class="bg-white shadow-lg rounded-lg p-8 max-w-xl w-full">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Create an Account</h2>
 
-            <form action="./register" id="signUpForm" class="space-y-4">
+            <form action="./register" method="POST" id="signUpForm" class="space-y-4">
                 <!-- ID Number -->
                 <div>
-                    <label for="id-number" class="block font-semibold text-gray-700 mb-1">ID Number</label>
-                    <input type="number" id="id-number" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Enter your ID" required>
+                    <label for="idnumber" class="block font-semibold text-gray-700 mb-1">ID Number</label>
+                    <input type="number" id="idnumber" name="idnumber" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Enter your ID" required>
                 </div>
 
                 <!-- Name Fields -->
                 <div class="flex space-x-4">
                     <div class="w-1/2">
-                        <label for="first-name" class="block font-semibold text-gray-700 mb-1">First Name</label>
-                        <input type="text" id="first-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="First Name" required>
+                        <label for="firstname" class="block font-semibold text-gray-700 mb-1">First Name</label>
+                        <input type="text" id="firstname" name="firstname" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="First Name" required>
                     </div>
                     <div class="w-1/2">
-                        <label for="last-name" class="block font-semibold text-gray-700 mb-1">Last Name</label>
-                        <input type="text" id="last-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Last Name" required>
+                        <label for="lastname" class="block font-semibold text-gray-700 mb-1">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Last Name" required>
                     </div>
                 </div>
                 <!-- M.I and Email -->
                 <div class="flex space-x-4">
                     <div class="w-2/12">
                         <label for="middleinitial" class="block font-semibold text-gray-700 mb-1">M.I</label>
-                        <input type="text" id="middleinitial" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="eg. L" required>
+                        <input type="text" id="middleinitial" name="middleinitial" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="eg. L" required>
                     </div>
                     <div class="w-10/12">
-                        <label for="last-name" class="block font-semibold text-gray-700 mb-1">Email</label>
-                        <input type="text" id="last-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="john.doe@csucc.edu.ph" required>
+                        <label for="email" class="block font-semibold text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="john.doe@csucc.edu.ph" required>
                     </div>
                 </div>
 
                 <!-- Password -->
                 <div>
-                    <label for="school-email" class="block font-semibold text-gray-700 mb-1">Password</label>
-                    <input type="email" id="school-email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="example@school.edu" required>
+                    <label for="password" class="block font-semibold text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" name="password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="example@school.edu" required>
                 </div>
 
                 <!-- Department Dropdown -->
                 <div>
                     <label for="department" class="block font-semibold text-gray-700 mb-1">Department</label>
-                    <select id="department" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
-                        <option value="">Select Department</option>
+                    <select id="department" name="department" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                        <option value="" >Select Department</option>
                         <option value="CEIT">CEIT</option>
                         <option value="CTHM">CTHM</option>
                         <option value="CBA">CBA</option>
                     </select>
                 </div>
-
                 <!-- Program Dropdown (Dynamic) -->
                 <div>
                     <label for="program" class="block font-semibold text-gray-700 mb-1">Program</label>
-                    <select id="program" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                    <select id="program" name="program" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
                         <option value="">Select Program</option>
                     </select>
                 </div>
                 <!-- contactnumber -->
                 <div>
                     <label for="contactnumber" class="block font-semibold text-gray-700 mb-1">Contact Number</label>
-                    <input type="number" id="contactnumber" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="09123808107" required>
+                    <input type="number" id="contactnumber" name="contactnumber" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="09123808107" required>
                 </div>
 
 
                 <!-- Address Fields (Compact with Flex) -->
                 <div>
                     <label for="address" class="block font-semibold text-gray-700 mb-1">Address</label>
-                    <div class="flex space-x-2">
-                        <input type="text" id="purok" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Purok" required>
-                        <input type="text" id="barangay" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Barangay" required>
-                        <input type="text" id="city" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="City" required>
-                        <input type="text" id="zip-code" class="w-1/4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Zip" required>
+                    <div class="flex space-x-2 ">
+                        <input type="text" id="purok" name="purok" class="w-1/2 p-3  mb-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Purok" required>
+                        <input type="text" id="barangay" name="barangay" class="w-1/2  mb-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Barangay" required>
                     </div>
+                    <div class="flex space-x-2">
+                        <input type="text" id="city" name="city" class="w-1/2 p-3  mb-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="City" required>
+                        <input type="text" id="zip" name="zip" class="w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Zip" required>
+                    </div>
+                    <input type="text" id="privince" name="province" class="p-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="Province" required>
                 </div>
                 <!-- Sex -->
                 <div>
-                    <label for="department" class="block font-semibold text-gray-700 mb-1">Sex</label>
-                    <select id="department" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                    <label for="sex" class="block font-semibold text-gray-700 mb-1">Sex</label>
+                    <select id="sex" name="sex" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                    <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
