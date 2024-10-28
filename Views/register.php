@@ -26,7 +26,6 @@
             <p>Create Account</p>
         </div>
     </header>
-
     <!-- Sign Up Form Section -->
     <div class="flex items-center justify-center flex-grow py-10">
         <div class="bg-white shadow-lg rounded-lg p-8 max-w-xl w-full">
@@ -56,7 +55,14 @@
                         <label for="middleinitial" class="block font-semibold text-gray-700 mb-1">M.I</label>
                         <input type="text" id="middleinitial" name="middleinitial" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="eg. L" required>
                     </div>
-                    <div class="w-10/12">
+                    <div class="w-2/12">
+                        <label for="sex" class="block font-semibold text-gray-700 mb-1">Sex</label>
+                        <select id="sex" name="sex" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="w-8/12">
                         <label for="email" class="block font-semibold text-gray-700 mb-1">Email</label>
                         <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" placeholder="john.doe@csucc.edu.ph" required>
                     </div>
@@ -72,18 +78,25 @@
                 <div>
                     <label for="department" class="block font-semibold text-gray-700 mb-1">Department</label>
                     <select id="department" name="department" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
-                        <option value="" >Select Department</option>
-                        <option value="CEIT">CEIT</option>
-                        <option value="CTHM">CTHM</option>
-                        <option value="CBA">CBA</option>
+                        <?php foreach ($departments as $department): ?>
+                            <option value="<?= htmlspecialchars($department['department_id']) ?>">
+                                <?= htmlspecialchars($department['department_name']) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <!-- Program Dropdown (Dynamic) -->
                 <div>
                     <label for="program" class="block font-semibold text-gray-700 mb-1">Program</label>
                     <select id="program" name="program" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
-                        <option value="">Select Program</option>
+                        <?php foreach ($programs as $program): ?>
+                            <option value="<?= htmlspecialchars($program['program_id']) ?>">
+                                <?= htmlspecialchars($program['program_name']) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
+
+
                 </div>
                 <!-- contactnumber -->
                 <div>
@@ -107,11 +120,13 @@
                 </div>
                 <!-- Sex -->
                 <div>
-                    <label for="sex" class="block font-semibold text-gray-700 mb-1">Sex</label>
-                    <select id="sex" name="sex" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
-                    <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                    <label for="role" class="block font-semibold text-gray-700 mb-1">Role</label>
+                    <select id="role" name="role" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                        <?php foreach ($roles as $role): ?>
+                            <option value="<?= htmlspecialchars($role['role_id']) ?>">
+                                <?= htmlspecialchars($role['role_name']) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <!-- Submit Button -->
@@ -119,26 +134,6 @@
             </form>
         </div>
     </div>
-
-    <!-- Script for Dynamic Program Dropdown -->
-    <script>
-        const department = document.getElementById('department');
-        const program = document.getElementById('program');
-
-        department.addEventListener('change', function () {
-            program.innerHTML = '<option value="">Select Program</option>'; // Reset options
-
-            if (this.value === 'CEIT') {
-                program.innerHTML += '<option value="IT">IT</option>';
-                program.innerHTML += '<option value="EE">EE</option>';
-                program.innerHTML += '<option value="DCT">DCT</option>';
-            } else if (this.value === 'CTHM') {
-                program.innerHTML += '<option value="HRM">HRM</option>';
-            } else if (this.value === 'CBA') {
-                program.innerHTML += '<option value="CB">CB</option>';
-            }
-        });
-    </script>
 </body>
 
 </html>

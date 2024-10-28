@@ -5,17 +5,17 @@ class AnnouncementController extends Users{
     public static function post(){
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
-            $post_what = $_POST["post_what"];
-            $post_who = $_POST["post_who"];
-            $post_where = $_POST["post_where"];
-            $post_when = $_POST["post_when"];
+            $post_title = $_POST["post_title"];
             $post_content = $_POST["post_content"];
-            if(empty($post_what)||empty($post_who)||empty($post_where)||empty($post_when)||empty($post_content)){
+            $post_when = $_POST["post_when"];
+            // $user_id = $_POST["user_id"];
+            $category_id = $_POST["category_id"];
+            if(empty($post_title)||empty($post_content)||empty($post_when)||empty($category_id)){
                 echo "Please fill in all fields.";
             }else{
                 $userModel = new Users();
 
-                if($userModel->createPost($post_what, $post_who, $post_where, $post_when, $post_content)){
+                if($userModel->createPost($post_title, $post_content, $post_when, $category_id)){
                     echo "Post created successfully.";
                     echo "<script>
                         setTimeout(() => {

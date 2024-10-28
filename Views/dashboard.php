@@ -68,8 +68,8 @@
                         <img src="./assets/profile.jpg" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">
                             <div>
-                                <h3 class="font-bold" id="user-name"><?php echo $data["firstname"] . " " . $data["middleinitial"] . ". " . $data["lastname"]; ?></h3>
-                                <p class="text-gray-500"><span id="program"><?= $data["program"]?></span> · <span id="month_name"><?=$data["month_name"]?></span> <span id="time_only"><?=$data["time_only"]?></span></p>
+                                <h3 class="font-bold" id="user-name"><?php echo $userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"]; ?></h3>
+                                <p class="text-gray-500"><span id="program"><?= $userData["program_id"]?></span> · <span id="month_name"><?=$userData["month_name"]?></span> <span id="time_only"><?=$userData["time_only"]?></span></p>
                             </div>
                             <div>
                                 <a href="">Edit</a>
@@ -83,14 +83,14 @@
                     <hr class="mt-5">
                     <div>
                         <p class="text-gray-500">Bio</p>
-                        Hi, I'm <span class="underline underline-offset-4"><?=$data["firstname"] . " " . $data["middleinitial"] . ". " . $data["lastname"];?></span> and I am a <?=$data["program"]?> student under the Department of <?=$data["department"]?>
+                        Hi, I'm <span class="underline underline-offset-4"><?=$userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"];?></span> and I am a <?=$userData["program_id"]?> student under the Department of <?=$userData["department_id"]?>
                     </div>
                 </div>
                 <!-- Dashboard feature -->
                  <div class="rounded-lg flex space-x-8">
                     <!-- Total Posts -->
                     <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
-                        <h2 class="text-xl text-center font-bold mb-4">Posted</h2>
+                        <h2 class="text-xl text-center font-bold mb-4">Active</h2>
                         <p class="text-center text-xl" id="post-count"></p>
                     </div>
                     <!-- Pending Posts -->
@@ -120,23 +120,33 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                             
                             <div class="flex flex-col">
-                                <label for="what" class="mb-2 font-medium text-gray-700">What:</label>
-                                <input type="text" id="what" name="post_what" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'What'">
+                                <label for="post_title" class="mb-2 font-medium text-gray-700">Title:</label>
+                                <input type="text" id="post_title" name="post_title" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'What'">
                             </div>
                             
                             <div class="flex flex-col">
-                                <label for="who" class="mb-2 font-medium text-gray-700">Who:</label>
-                                <input type="text" id="who" name="post_who" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Who'">
+                                <label for="category_id" class="mb-2 font-medium text-gray-700">Category :</label>
+                                <!-- <input type="text" id="who" name="post_who" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Who'"> -->
+                                <select id="category_id" name="category_id" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                                    <option value="">Select Category</option>
+                                        <!-- <option value="male">Male</option>
+                                        <option value="female">Female</option> -->
+                                        <?php foreach ($postCategories as $postCategory): ?>
+                                            <option value="<?= htmlspecialchars($postCategory['category_id']) ?>">
+                                                <?= htmlspecialchars($postCategory['category_name']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                             </div>
                             
-                            <div class="flex flex-col">
-                                <label for="where" class="mb-2 font-medium text-gray-700">Where:</label>
+                            <!-- <div class="flex flex-col">
+                                <label for="where" class="mb-2 font-medium text-gray-700">w:</label>
                                 <input type="text" id="where" name="post_where" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Where'">
-                            </div>
+                            </div> -->
                             
                             <div class="flex flex-col">
-                                <label for="when" class="mb-2 font-medium text-gray-700">When:</label>
-                                <input type="text" id="when" name="post_when" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'When'">
+                                <label for="post_when" class="mb-2 font-medium text-gray-700">To be posted on :</label>
+                                <input type="date" id="post_when" name="post_when" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'When'">
                             </div>
                         </div>
                     
@@ -157,40 +167,44 @@
                 <div class="sticky top-24">
                     <div class="bg-white p-6 rounded-lg mb-8 shadow">
                         <h2 class="text-xl font-bold mb-4">Pinned Announcement</h2>
+                        <?php foreach($pinnedPosts as $pinnedPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->
-                            <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
                                     <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
-                                        <h3 class="font-bold">Ric Charles Paquibot</h3>
+                                        <h3 class="font-bold"><?=$pinnedPost["first_name"]?> <?=$pinnedPost["last_name"]?></h3>
                                         <span class="text-gray-500">Pinned</span>
                                     </div>
                                 </div>
-                                <h4 class="font-bold mt-4">Welcome to Announcement...</h4>
-                                <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
+                                <h4 class="font-bold mt-4"><?=$pinnedPost["post_title"]?></h4>
+                                <p class="text-gray-700 mt-2"><?=$pinnedPost["post_content"]?></p>
                                 <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
+                        <?php endforeach ?>
                     </div>
                     <!-- Scheduled Post Section -->
                     <div class="bg-white p-6 rounded-lg shadow">
                         <h2 class="text-xl font-bold mb-4">Scheduled Post</h2>
+                        <?php foreach($scheduledPosts as $scheduledPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->
-                            <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
                                     <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
-                                        <h3 class="font-bold">Ric Charles Paquibot</h3>
-                                        <span class="text-gray-500">Will be post on December 2,2024</span>
+                                        <h3 class="font-bold">Ric Charles</h3>
+                                        <span class="text-gray-500">To be post on <?=$scheduledPost["month_name"]?> <?=$scheduledPost["date_only"]?></span>
                                     </div>
                                 </div>
-                                <h4 class="font-bold mt-4">Welcome to Announcement...</h4>
-                                <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
+                                <h4 class="font-bold mt-4"><?=$scheduledPost["post_title"]?></h4>
+                                <p class="text-gray-700 mt-2"><?=$scheduledPost["post_content"]?></p>
                                 <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 

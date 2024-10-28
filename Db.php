@@ -4,7 +4,7 @@ class Database {
     private $host = "localhost";
     private $username = "root";
     private $password = "";
-    private $database = "amsystem2";
+    private $database = "amsystemv3";
 
     public function Connect(){
         try {

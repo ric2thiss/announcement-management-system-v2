@@ -17,11 +17,18 @@ Route::get('/', function() {
 Route::get('/login', function() {
     require_once('./Controller/LoginController.php');
     LoginController::login();
+});
+Route::post('/login', function() {
+    require_once('./Controller/LoginController.php');
+    LoginController::login();
     // View::render('login');
 });
 
 Route::get('/register', function() {
-    // echo "Registration Page";
+    require_once('./Controller/RegisterController.php');
+    RegisterController::register();
+});
+Route::post('/register', function() {
     require_once('./Controller/RegisterController.php');
     RegisterController::register();
 });
@@ -32,18 +39,6 @@ Route::get('/logout', function(){
     header("Location: ./login"); 
     exit(); 
 });
-
-// Route::get('/dashboard', function(){
-//     $userData = ["user_id"=>$_SESSION["user_id"], "user_email"=>$_SESSION["email"]];
-//     Middleware::Authenticate();
-//     View::render('dashboard', $userData);
-// });
-
-// Handle login form submission on POST request
-// Route::post('/login', function() {
-//     require_once('./Controller/LoginController.php');
-//     LoginController::login();
-// });
 Route::get('/dashboard', function(){
     require_once('./Controller/DasboardController.php');
     DashboardController::show();
@@ -53,12 +48,6 @@ Route::post('/dashboard', function(){
     // DashboardController::show();
     AnnouncementController::post();
 });
-
-// Route::get('/student', function(){
-//     // require_once('./Controller/StudentController.php');
-//     // StudentController::show();
-//     echo "Student Page";
-// });
 
 
 

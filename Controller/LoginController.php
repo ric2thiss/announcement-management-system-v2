@@ -18,13 +18,16 @@ class LoginController{
                     echo "<script>alert('Login Success')</script>";
                     header("Location: ./dashboard");
                 }else{
-                    echo "<script>alert('Invalid Email or Password')</script>";
+                    // echo "<script>alert('Invalid Email or Password')</script>";
+                    $_SESSION["error"] = "Invalid Email or Password";
                     header("Location: ./login");
+                    // header("Location: ./login");
                 }
             }  
         }else {
             // require_once("./Controller/Middleware.php");
             // Middleware::Authenticate();
+            
             View::render('login');
         }
     }

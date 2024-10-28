@@ -68,8 +68,8 @@
                         <img src="./assets/profile.jpg" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">
                             <div>
-                                <h3 class="font-bold" id="user-name"><?php echo $data["firstname"] . " " . $data["middleinitial"] . ". " . $data["lastname"]; ?></h3>
-                                <p class="text-gray-500"><span id="program"><?= $data["program"]?></span> · <span id="month_name"><?=$data["month_name"]?></span> <span id="time_only"><?=$data["time_only"]?></span></p>
+                                <h3 class="font-bold" id="user-name"><?php echo $data["first_name"] . " " . $data["middle_initial"] . ". " . $data["last_name"]; ?></h3>
+                                <p class="text-gray-500"><span id="program"><?= $data["program_id"]?></span> · <span id="month_name"><?=$data["month_name"]?></span> <span id="time_only"><?=$data["time_only"]?></span></p>
                             </div>
                             <div>
                                 <a href="">Edit</a>
@@ -83,7 +83,7 @@
                     <hr class="mt-5">
                     <div>
                         <p class="text-gray-500">Bio</p>
-                        Hi, I'm <span class="underline underline-offset-4"><?=$data["firstname"] . " " . $data["middleinitial"] . ". " . $data["lastname"];?></span> and I am a <?=$data["program"]?> student under the Department of <?=$data["department"]?>
+                        Hi, I'm <span class="underline underline-offset-4"><?=$data["first_name"] . " " . $data["middle_initial"] . ". " . $data["last_name"];?></span> and I am a <?=$data["program_id"]?> student under the Department of <?=$data["department_id"]?>
                     </div>
                 </div>
                 <!-- Dashboard feature -->

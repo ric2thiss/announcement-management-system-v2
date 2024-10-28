@@ -1,8 +1,4 @@
 
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,6 +38,17 @@
 
             <form method="POST" action="./login" class="space-y-6" id="loginForm" name="loginForm">
                 <!-- Username / Email -->
+                 <div class="error text-center text-red-600">
+                    <?php
+                        if(!empty($_SESSION["error"])){
+                            echo $_SESSION["error"];
+                        }
+
+                        print_r($_SESSION);
+
+                        // session_destroy();
+                    ?>
+                 </div>
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
                     <div class="mt-1 relative">

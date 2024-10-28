@@ -6,10 +6,16 @@ class DashboardController extends Users{
          
         $userModel = new Users();
         $userData = $userModel->getUserById($_SESSION['user_id']);
-         if($userData["role"] == "student"){
+    
+        $postModel = new Users(); 
+        $postCategories = $postModel->getInitialDataPost();
+        $pinnedPosts = $postModel->getPinnedPost();
+        $scheduledPosts = $postModel->getpost();
+
+         if($userData["role_id"] == 4){
             View::render('student', $userData);
-         }else if($userData["role"] == "admin"){
-            View::render('dashboard', $userData);
+         }else if($userData["role_id"] < 4){
+            View::render('dashboard', ["userData"=>$userData, "postCategories"=>$postCategories, "pinnedPosts"=>$pinnedPosts, "scheduledPosts"=>$scheduledPosts]);
          }else{
             View::render('error');
          }
