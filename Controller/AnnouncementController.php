@@ -15,7 +15,9 @@ class AnnouncementController extends Users{
             }else{
                 $userModel = new Users();
 
+
                 if($userModel->createPost($post_title, $post_content, $post_when, $category_id)){
+                    Users::setPinnedPosts();
                     echo "Post created successfully.";
                     echo "<script>
                         setTimeout(() => {

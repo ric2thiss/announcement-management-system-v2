@@ -2,14 +2,14 @@
 require('./Db.php');
 
 class Users extends Database {
-    public function getpost(){
+    public function getScheduledpost(){
         $conn = $this->Connect();
         $stmt = $conn->prepare("SELECT p.*,  DATE_FORMAT(sp.schedule_date, '%d, %Y') AS date_only, MONTHNAME(sp.schedule_date) AS month_name
                                 FROM scheduled_posts sp
                                 INNER JOIN posts p ON sp.post_id = p.post_id
-                                WHERE DATE(sp.schedule_date) = CURRENT_DATE
+                                WHERE DATE(sp.schedule_date) > CURRENT_DATE
                                 ORDER BY sp.schedule_date ASC
-                                LIMIT 2;
+                                ;
                                 ");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -17,12 +17,17 @@ class Users extends Database {
     
     public function getPinnedPost() {
         $conn = $this->Connect();
-    
-        $stmt = $conn->prepare("SELECT p.*, u.first_name, u.last_name
+        // SELECT p.*, u.first_name, u.last_name
+        // FROM posts p
+        // INNER JOIN scheduled_posts sp ON p.post_id = sp.post_id
+        // INNER JOIN users u ON p.user_id = u.user_id
+        // WHERE NOW() BETWEEN DATE_SUB(sp.schedule_date, INTERVAL 1 DAY) AND sp.schedule_date;
+        // -- WHERE sp.schedule_date = NOW() 
+        $stmt = $conn->prepare("SELECT pp.*, p.*,u.first_name, u.last_name
                                 FROM posts p
-                                INNER JOIN scheduled_posts sp ON p.post_id = sp.post_id
+                                INNER JOIN pinned_posts pp ON p.post_id = pp.post_id
                                 INNER JOIN users u ON p.user_id = u.user_id
-                                WHERE NOW() BETWEEN DATE_SUB(sp.schedule_date, INTERVAL 1 DAY) AND sp.schedule_date;
+                                WHERE DATE(pinned_date) = CURDATE();
                                 ");
     
         $stmt->execute();
@@ -31,7 +36,7 @@ class Users extends Database {
         return $result; // Return the retrieved posts
     }    
 
-    public function getInitialDataPost() {
+    public function getCategories() {
         $conn = $this->Connect(); // Ensure this method properly establishes a database connection
         $stmt = $conn->prepare("SELECT category_name, category_id FROM categories");
         $stmt->execute();
@@ -41,12 +46,13 @@ class Users extends Database {
         return $result;
     }
     
-
+    
     public function getInitialData(){
         // begin transaction
         $conn = $this->Connect();
+        self::setPinnedPosts();
         $conn->beginTransaction();
-
+        
         // Query to fetch roles
         $stmtRoles = $conn->prepare("SELECT role_name, role_id FROM roles");
         $stmtRoles->execute();
@@ -206,12 +212,17 @@ class Users extends Database {
         $stmt->execute(["email" => $email]);
         $user = $stmt->fetch(); 
 
+        
  
         if ($user && password_verify($password, $user["password"])) {
-            session_start();
+            // session_start();
             $_SESSION["user_id"] = $user["user_id"];
             $_SESSION["email"] = $user["email"];
             $_SESSION["role"] = $user["role_id"];
+
+            self::setPinnedPosts();
+
+
             return true; 
         }
 
@@ -248,6 +259,28 @@ class Users extends Database {
         } else {
             return false;
         }
+    }
+
+    public static function setPinnedPosts(){
+        $db = new Database();
+        $conn = $db->Connect();
+        $conn->beginTransaction();
+            
+        $stmtPinnedPosts = $conn->prepare("INSERT INTO pinned_posts (post_id, pinned_date)
+        SELECT post_id, CURDATE()
+        FROM posts
+        WHERE DATE(post_when) = CURDATE()
+        AND NOT EXISTS (
+            SELECT 1 FROM pinned_posts
+            WHERE pinned_posts.post_id = posts.post_id
+            AND pinned_date = CURDATE()
+        )
+    ");
+    
+        $stmtPinnedPosts->execute();
+        
+        // Commit the transaction
+        $conn->commit();
     }
     
 
