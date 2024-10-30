@@ -7,8 +7,9 @@ class Users extends Database {
         $stmt = $conn->prepare("SELECT p.*,  DATE_FORMAT(sp.schedule_date, '%d, %Y') AS date_only, MONTHNAME(sp.schedule_date) AS month_name
                                 FROM scheduled_posts sp
                                 INNER JOIN posts p ON sp.post_id = p.post_id
-                                ORDER BY month_name DESC
-                                ;
+                                WHERE DATE(sp.schedule_date) = CURRENT_DATE
+                                ORDER BY sp.schedule_date ASC
+                                LIMIT 2;
                                 ");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -219,8 +220,11 @@ class Users extends Database {
 
     public function getUserById($user_id) {
         $stmt = $this->Connect()->prepare("SELECT *,DATE(created_at) AS date_only,           
-        TIME_FORMAT(created_at, '%h:%i:%s %p') AS time_only,  
-        MONTHNAME(created_at) AS month_name   FROM users WHERE user_id = :user_id");
+                                           TIME_FORMAT(created_at, '%h:%i:%s %p') AS time_only,  
+                                           MONTHNAME(created_at) AS month_name , role_name
+                                           FROM users 
+                                           INNER JOIN roles on users.role_id = roles.role_id
+                                           WHERE user_id = :user_id");
         $stmt->execute(['user_id' => $user_id]);
         return $stmt->fetch(); // Returns the user data as an associative array
     }

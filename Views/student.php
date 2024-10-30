@@ -83,7 +83,7 @@
                     <hr class="mt-5">
                     <div>
                         <p class="text-gray-500">Bio</p>
-                        Hi, I'm <span class="underline underline-offset-4"><?=$data["first_name"] . " " . $data["middle_initial"] . ". " . $data["last_name"];?></span> and I am a <?=$data["program_id"]?> student under the Department of <?=$data["department_id"]?>
+                        Hi, I'm <span class="underline underline-offset-4"><?=$data["first_name"] . " " . $data["middle_initial"] . ". " . $data["last_name"];?></span> and I am a <?=$data["program_id"]?> <?=$data["role_name"]?> under the Department of <?=$data["department_id"]?>
                     </div>
                 </div>
                 <!-- Dashboard feature -->
