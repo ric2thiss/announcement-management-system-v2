@@ -3,12 +3,12 @@ session_start();
 require('./Controller/Middleware.php');
 require('./Controller/Views.php');
 require('./Controller/Route.php');
-// require('./Controller/DasboardController.php');
 
 $path = isset($_GET["path"]) ? $_GET["path"] : "";
 
 
 Route::get('/', function() {
+    Middleware::isLoggedIn(); 
     View::render('login');
 });
 
@@ -21,11 +21,11 @@ Route::get('/login', function() {
 Route::post('/login', function() {
     require_once('./Controller/LoginController.php');
     LoginController::login();
-    // View::render('login');
 });
 
 Route::get('/register', function() {
     require_once('./Controller/RegisterController.php');
+    Middleware::isLoggedIn(); 
     RegisterController::register();
 });
 Route::post('/register', function() {
@@ -45,15 +45,24 @@ Route::get('/dashboard', function(){
 });
 Route::post('/dashboard', function(){
     require_once('./Controller/AnnouncementController.php');
-    // DashboardController::show();
     AnnouncementController::post();
 });
+
+// API end point
+
+Route::get('/user/{id}', function($id) {
+    require_once('./Controller/UsersController.php');
+    UsersController::find($id);  
+});
+
+
 
 
 
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $requestUri = "/".$path ;
+
 
 // Return the request 
 Route::dispatch($requestUri);

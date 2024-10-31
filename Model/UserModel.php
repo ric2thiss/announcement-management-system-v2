@@ -23,7 +23,7 @@ class Users extends Database {
         // INNER JOIN users u ON p.user_id = u.user_id
         // WHERE NOW() BETWEEN DATE_SUB(sp.schedule_date, INTERVAL 1 DAY) AND sp.schedule_date;
         // -- WHERE sp.schedule_date = NOW() 
-        $stmt = $conn->prepare("SELECT pp.*, p.*,u.first_name, u.last_name
+        $stmt = $conn->prepare("SELECT pp.*, p.*,u.first_name, u.last_name, u.user_id
                                 FROM posts p
                                 INNER JOIN pinned_posts pp ON p.post_id = pp.post_id
                                 INNER JOIN users u ON p.user_id = u.user_id
@@ -232,9 +232,12 @@ class Users extends Database {
     public function getUserById($user_id) {
         $stmt = $this->Connect()->prepare("SELECT *,DATE(created_at) AS date_only,           
                                            TIME_FORMAT(created_at, '%h:%i:%s %p') AS time_only,  
-                                           MONTHNAME(created_at) AS month_name , role_name
+                                           MONTHNAME(created_at) AS month_name , role_name,
+                                           d.department_name, p.program_name
                                            FROM users 
                                            INNER JOIN roles on users.role_id = roles.role_id
+                                           INNER JOIN departments d on users.department_id = d.department_id
+                                           INNER JOIN programs p on users.program_id = p.program_id
                                            WHERE user_id = :user_id");
         $stmt->execute(['user_id' => $user_id]);
         return $stmt->fetch(); // Returns the user data as an associative array
@@ -282,6 +285,40 @@ class Users extends Database {
         // Commit the transaction
         $conn->commit();
     }
+
+  // SELECT posts.*, users.*, pinned_posts.*, 
+        //                         categories.*, departments.*, programs.*, roles.*, scheduled_posts.*
+        //                         FROM users
+        //                         INNER JOIN posts ON users.user_id = posts.user_id
+        //                         LEFT JOIN pinned_posts ON posts.post_id = pinned_posts.post_id
+        //                         LEFT JOIN categories ON posts.category_id = categories.category_id
+        //                         LEFT JOIN departments ON users.department_id = departments.department_id
+        //                         LEFT JOIN programs ON users.program_id = programs.program_id
+        //                         LEFT JOIN roles ON users.role_id = roles.role_id
+        //                         LEFT JOIN scheduled_posts ON posts.post_id = scheduled_posts.post_id
+        //                         WHERE users.user_id = :user_id
+
+        public static function find($id) {
+            // Create a new database connection
+            $db = new Database();
+            $conn = $db->Connect();
+          
+            // Prepare the SQL statement to select a user by user_id
+            $stmt = $conn->prepare('SELECT * FROM users WHERE user_id = :user_id');
+            
+            // Bind the parameter to ensure it's treated as an integer
+            $stmt->bindParam(':user_id', $id, PDO::PARAM_INT);
+            
+            // Execute the query
+            if ($stmt->execute()) {
+                // Fetch the result as an associative array
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $result ? $result : null; // Return the result or null if not found
+            } else {
+                // Optionally handle query execution error
+                return null;
+            }
+        }
     
 
 }

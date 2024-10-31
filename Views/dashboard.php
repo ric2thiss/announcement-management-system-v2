@@ -72,9 +72,9 @@
                                 <p class="text-gray-500"><span id="program"><?= $userData["program_id"]?></span> · <span id="month_name"><?=$userData["month_name"]?></span> <span id="time_only"><?=$userData["time_only"]?></span></p>
                             </div>
                             <div>
-                                <a href="">Edit</a>
+                                <a href="./edit-profile">Edit</a>
                                 <span class="mx-4"> | </span>
-                                <a href="">Settings</a>
+                                <a href="./settings">Settings</a>
                                 <span class="mx-4"> | </span>
                                 <a href="./logout">Logout</a>
                             </div>
@@ -83,7 +83,7 @@
                     <hr class="mt-5">
                     <div>
                         <p class="text-gray-500">Bio</p>
-                        Hi, I'm <span class="underline underline-offset-4"><?=$userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"];?></span> and I am a <?=$userData["program_id"]?> student under the Department of <?=$userData["department_id"]?>
+                        Hi, I'm <span class="underline underline-offset-4"><?=$userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"];?></span> and I am a <?=$userData["program_name"]?>, <?=$userData["role_name"]?>  under the Department of <?=$userData["department_name"]?>
                     </div>
                 </div>
                 <!-- Dashboard feature -->
@@ -174,7 +174,7 @@
                                 <div class="flex items-center space-x-4">
                                     <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
-                                        <h3 class="font-bold"><?=$pinnedPost["first_name"]?> <?=$pinnedPost["last_name"]?></h3>
+                                        <h3 class="font-bold"><a href="./user/<?=$pinnedPost["user_id"]?>"><?=$pinnedPost["first_name"]?> <?=$pinnedPost["last_name"]?></a></h3>
                                         <span class="text-gray-500">Pinned</span>
                                     </div>
                                 </div>
