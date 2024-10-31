@@ -47,12 +47,12 @@
     <main class="flex">
         <!-- Sidebar (Sticky) -->
         <aside class="w-16 bg-gray-900 text-white flex flex-col items-center space-y-6 py-6 sticky top-14 h-screen">
-            <a href="home.html" class="text-gray-500"><i class="fa-solid fa-house text-xl"></i></a>
-            <a href="calendar.html" class="text-gray-500"><i class="fa-solid fa-calendar-days text-xl"></i></a>
-            <a href="#" class="text-gray-500"><i class="fa-solid fa-comments text-xl"></i></a>
-            <a href="department.html" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
-            <a href="#" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
-            <a href="dashboard.html" class="text-white"><i class="fa-solid fa-user text-xl"></i></a>
+            <a href="./home" class="text-gray-500"><i class="fa-solid fa-house text-xl"></i></a>
+            <a href="./calendar" class="text-gray-500"><i class="fa-solid fa-calendar-days text-xl"></i></a>
+            <a href="./chat" class="text-gray-500"><i class="fa-solid fa-comments text-xl"></i></a>
+            <a href="./department" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
+            <a href="./status" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
+            <a href="./dashboard" class="text-white"><i class="fa-solid fa-user text-xl"></i></a>
         </aside>
 
         <!-- Main Content -->
@@ -69,7 +69,7 @@
                         <div class="flex justify-between size-full">
                             <div>
                                 <h3 class="font-bold" id="user-name"><?php echo $userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"]; ?></h3>
-                                <p class="text-gray-500"><span id="program"><?= $userData["program_id"]?></span> · <span id="month_name"><?=$userData["month_name"]?></span> <span id="time_only"><?=$userData["time_only"]?></span></p>
+                                <p class="text-gray-500"><span id="program"><?= $userData["program_name"]?></span> · <span id="month_name"><?=$userData["month_name"]?></span> <span id="time_only"><?=$userData["time_only"]?></span></p>
                             </div>
                             <div>
                                 <a href="./edit-profile">Edit</a>
@@ -180,7 +180,7 @@
                                 </div>
                                 <h4 class="font-bold mt-4"><?=$pinnedPost["post_title"]?></h4>
                                 <p class="text-gray-700 mt-2"><?=$pinnedPost["post_content"]?></p>
-                                <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <a href="./posts/<?=$pinnedPost["pinned_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
                         <?php endforeach ?>

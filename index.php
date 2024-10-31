@@ -48,11 +48,21 @@ Route::post('/dashboard', function(){
     AnnouncementController::post();
 });
 
-// API end point
+Route::get("/home", function(){
+    require_once('./Controller/HomeController.php');
+    HomeController::show();
+    });
 
+// API end point
+// Users
 Route::get('/user/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::find($id);  
+});
+// Posts
+Route::get('/posts/{id}', function($id) {
+    require_once('./Controller/UsersController.php');
+    UsersController::open_pinned_post($id);  
 });
 
 

@@ -1,3 +1,9 @@
+<?php
+
+// print_r($posts)
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,16 +91,18 @@
                 </div>
                 
                 <!-- Example of Announcement Post -->
+
+                <?php foreach($posts as $post): ?>
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
                     <div class="flex items-center space-x-4">
                         <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
                         <div>
-                            <h3 class="font-bold">Ric Charles Paquibot</h3>
-                            <p class="text-gray-500">Web Developer · Oct 8, 8:36 pm</p>
+                            <h3 class="font-bold"><a href="./user/<?=$post["user_id"]?>"><?=$post["first_name"]?> <?=$post["last_name"]?></a></h3>
+                            <p class="text-gray-500"><?=$post["role_name"]?> · <?=$post["month"]?> <?=$post["date"]?>, <?=$post["time"]?></p>
                         </div>
                     </div>
-                    <h4 class="font-bold text-lg mt-4">Welcome to Announcement Management System of CSUCC 🎉</h4>
-                    <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
+                    <h4 class="font-bold text-lg mt-4"><?=$post["post_title"]?> 🎉</h4>
+                    <div class="text-gray-700 mt-2"><?=$post["post_content"]?></div>
                     <div class="flex items-center space-x-4 mt-4">
                         <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
@@ -102,91 +110,7 @@
                         <button class="text-blue-500"><i class="fa-solid fa-eye"></i> View Full Post</button>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <div class="flex items-center space-x-4">
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                        <div>
-                            <h3 class="font-bold">Ric Charles Paquibot</h3>
-                            <p class="text-gray-500">Web Developer · Oct 8, 8:36 pm</p>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-4">Welcome to Announcement Management System of CSUCC 🎉</h4>
-                    <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                    <div class="flex items-center space-x-4 mt-4">
-                        <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-share"></i> Share</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-eye"></i> View Full Post</button>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <div class="flex items-center space-x-4">
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                        <div>
-                            <h3 class="font-bold">Ric Charles Paquibot</h3>
-                            <p class="text-gray-500">Web Developer · Oct 8, 8:36 pm</p>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-4">Welcome to Announcement Management System of CSUCC 🎉</h4>
-                    <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                    <div class="flex items-center space-x-4 mt-4">
-                        <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-share"></i> Share</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-eye"></i> View Full Post</button>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <div class="flex items-center space-x-4">
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                        <div>
-                            <h3 class="font-bold">Ric Charles Paquibot</h3>
-                            <p class="text-gray-500">Web Developer · Oct 8, 8:36 pm</p>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-4">Welcome to Announcement Management System of CSUCC 🎉</h4>
-                    <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                    <div class="flex items-center space-x-4 mt-4">
-                        <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-share"></i> Share</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-eye"></i> View Full Post</button>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <div class="flex items-center space-x-4">
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                        <div>
-                            <h3 class="font-bold">Ric Charles Paquibot</h3>
-                            <p class="text-gray-500">Web Developer · Oct 8, 8:36 pm</p>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-4">Welcome to Announcement Management System of CSUCC 🎉</h4>
-                    <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                    <div class="flex items-center space-x-4 mt-4">
-                        <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-share"></i> Share</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-eye"></i> View Full Post</button>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <div class="flex items-center space-x-4">
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                        <div>
-                            <h3 class="font-bold">Ric Charles Paquibot</h3>
-                            <p class="text-gray-500">Web Developer · Oct 8, 8:36 pm</p>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-4">Welcome to Announcement Management System of CSUCC 🎉</h4>
-                    <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                    <div class="flex items-center space-x-4 mt-4">
-                        <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-share"></i> Share</button>
-                        <button class="text-blue-500"><i class="fa-solid fa-eye"></i> View Full Post</button>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
 
             <!-- Pinned Announcement Section (Sticky) -->

@@ -1,4 +1,7 @@
 <?php
+
+use Symfony\Component\Validator\Constraints\Date;
+
 require('./Db.php');
 
 class Users extends Database {
@@ -17,12 +20,6 @@ class Users extends Database {
     
     public function getPinnedPost() {
         $conn = $this->Connect();
-        // SELECT p.*, u.first_name, u.last_name
-        // FROM posts p
-        // INNER JOIN scheduled_posts sp ON p.post_id = sp.post_id
-        // INNER JOIN users u ON p.user_id = u.user_id
-        // WHERE NOW() BETWEEN DATE_SUB(sp.schedule_date, INTERVAL 1 DAY) AND sp.schedule_date;
-        // -- WHERE sp.schedule_date = NOW() 
         $stmt = $conn->prepare("SELECT pp.*, p.*,u.first_name, u.last_name, u.user_id
                                 FROM posts p
                                 INNER JOIN pinned_posts pp ON p.post_id = pp.post_id
@@ -286,39 +283,79 @@ class Users extends Database {
         $conn->commit();
     }
 
-  // SELECT posts.*, users.*, pinned_posts.*, 
-        //                         categories.*, departments.*, programs.*, roles.*, scheduled_posts.*
-        //                         FROM users
-        //                         INNER JOIN posts ON users.user_id = posts.user_id
-        //                         LEFT JOIN pinned_posts ON posts.post_id = pinned_posts.post_id
-        //                         LEFT JOIN categories ON posts.category_id = categories.category_id
-        //                         LEFT JOIN departments ON users.department_id = departments.department_id
-        //                         LEFT JOIN programs ON users.program_id = programs.program_id
-        //                         LEFT JOIN roles ON users.role_id = roles.role_id
-        //                         LEFT JOIN scheduled_posts ON posts.post_id = scheduled_posts.post_id
-        //                         WHERE users.user_id = :user_id
 
-        public static function find($id) {
-            // Create a new database connection
-            $db = new Database();
-            $conn = $db->Connect();
-          
-            // Prepare the SQL statement to select a user by user_id
-            $stmt = $conn->prepare('SELECT * FROM users WHERE user_id = :user_id');
-            
-            // Bind the parameter to ensure it's treated as an integer
-            $stmt->bindParam(':user_id', $id, PDO::PARAM_INT);
-            
-            // Execute the query
-            if ($stmt->execute()) {
-                // Fetch the result as an associative array
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                return $result ? $result : null; // Return the result or null if not found
-            } else {
-                // Optionally handle query execution error
-                return null;
-            }
+    public static function find($id) {
+        $db = new Database();
+        $conn = $db->Connect();
+    
+        $stmt = $conn->prepare("SELECT posts.*, users.*, pinned_posts.*, categories.*, 
+                                departments.*, programs.*, roles.*, scheduled_posts.*, 
+                                DATE(users.created_at) AS date_only,           
+                                TIME_FORMAT(users.created_at, '%h:%i:%s %p') AS time_only,  
+                                MONTHNAME(users.created_at) AS month_name 
+                                FROM users
+                                INNER JOIN posts ON users.user_id = posts.user_id
+                                LEFT JOIN pinned_posts ON posts.post_id = pinned_posts.post_id
+                                LEFT JOIN categories ON posts.category_id = categories.category_id
+                                LEFT JOIN departments ON users.department_id = departments.department_id
+                                LEFT JOIN programs ON users.program_id = programs.program_id
+                                LEFT JOIN roles ON users.role_id = roles.role_id
+                                LEFT JOIN scheduled_posts ON posts.post_id = scheduled_posts.post_id
+                                WHERE users.user_id = :user_id");
+    
+        $stmt->bindParam(':user_id', $id, PDO::PARAM_INT);
+    
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         }
+        return null;
+    }
+    
+    
+
+    public static function getPinnedPostPage($id) {
+        $db = new Database();
+        $conn = $db->Connect();
+        
+        // Prepare the SQL statement
+        $stmt = $conn->prepare("SELECT * FROM pinned_posts WHERE pinned_id = :pinned_id");
+        $stmt->bindParam(":pinned_id", $id);
+        
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Fetch a single record
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : null; 
+        } else {
+            return null;
+        }
+    }
+
+
+    // For Home Page
+
+    public static function getAllPosts(){
+        $db = new Database();
+
+        $conn = $db->Connect();
+        $stmt = 
+                 $conn->prepare("SELECT posts.*, users.*, departments.*, programs.*, roles.*, 
+                                DATE_FORMAT(posts.created_at, '%d') AS date, 
+                                MONTHNAME(posts.created_at) AS month, 
+                                TIME_FORMAT(posts.created_at, '%h:%i %p') AS time
+                                FROM posts
+                                INNER JOIN users ON users.user_id = posts.user_id
+                                INNER JOIN departments ON users.department_id = departments.department_id
+                                INNER JOIN programs ON users.program_id = programs.program_id
+                                INNER JOIN roles ON users.role_id = roles.role_id
+                                ORDER BY posts.post_id DESC;
+                                ");
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+        
     
 
 }
