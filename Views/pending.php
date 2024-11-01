@@ -1,6 +1,5 @@
 <?php
 
-// print_r($posts)
 
 ?>
 
@@ -68,12 +67,12 @@
                     <div class="flex items-center space-x-4">
                         <img src="../assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
                         <div>
-                            <h3 class="font-bold"><a href="./user/<?=$pinned_posts["user_id"]?>"><?=$pinned_posts["first_name"]?> <?=$pinned_posts["last_name"]?></a></h3>
-                            <p class="text-gray-500"><?=$pinned_posts["role_name"]?> · <?=$pinned_posts["month_name"]?> <?=$pinned_posts["date_only"]?>, <?=$pinned_posts["time_only"]?></p>
+                            <h3 class="font-bold"><a href="./user/<?=$scheduled_posts["user_id"]?>"><?=$scheduled_posts["first_name"]?> <?=$scheduled_posts["last_name"]?></a></h3>
+                            <p class="text-gray-500"><?=$scheduled_posts["role_name"]?> · Will be post on <?=$scheduled_posts["month_name"]?> <?=$scheduled_posts["date_only"]?>, <?=$scheduled_posts["time_only"]?></p>
                         </div>
                     </div>
-                    <h4 class="font-bold text-lg mt-4"><?=$pinned_posts["post_title"]?> 🎉</h4>
-                    <div class="text-gray-700 mt-2"><?=$pinned_posts["post_content"]?></div>
+                    <h4 class="font-bold text-lg mt-4"><?=$scheduled_posts["post_title"]?> 🎉</h4>
+                    <div class="text-gray-700 mt-2"><?=$scheduled_posts["post_content"]?></div>
                     <div class="flex items-center space-x-4 mt-4">
                         <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>

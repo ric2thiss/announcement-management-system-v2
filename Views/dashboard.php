@@ -156,7 +156,7 @@
                         <div id="editor">
                             
                         </div>
-                        <input name="submit" type="submit"  value="Post" id="post" class="my-3 px-5 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out">
+                        <input name="submit" type="submit"  value="Post" id="post" class="my-3 px-5 py-2 cursor-pointer bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out">
                     </form>
 
                 
@@ -196,13 +196,13 @@
                                 <div class="flex items-center space-x-4">
                                     <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
-                                        <h3 class="font-bold">Ric Charles</h3>
+                                        <h3 class="font-bold"><?=$scheduledPost["first_name"]?> <?=$scheduledPost["last_name"]?></h3>
                                         <span class="text-gray-500">To be post on <?=$scheduledPost["month_name"]?> <?=$scheduledPost["date_only"]?></span>
                                     </div>
                                 </div>
                                 <h4 class="font-bold mt-4"><?=$scheduledPost["post_title"]?></h4>
                                 <p class="text-gray-700 mt-2"><?=$scheduledPost["post_content"]?></p>
-                                <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <a href="./pending/<?=$scheduledPost["scheduled_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
                         <?php endforeach ?>
@@ -217,17 +217,20 @@
                     <div class="bg-white p-6 mb-8 rounded-lg shadow">
                         <h2 class="text-xl font-bold mb-4">Announcement</h2>
                         <div class="flex justify-between items-center mb-4">
-                            <span>Category</span>
-                            <button class="text-blue-500">+ Add new</button>
+                            <form action="./dashboard" method="POST" class="flex justify-between gap-1 items-center w-full">
+                                <input type="text" name="category_name" id="" class="p-2 border w-full border-gray-300 rounded-lg" placeholder="Category">
+                                <input type="submit" class="text-white p-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md 
+                              cursor-pointer  hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out" value=" + Category">
+                            </form>
                         </div>
                         <div class="space-y-2">
                             <p class="bg-gray-100 p-4 rounded-lg flex justify-between">
-                                All Announcement <span>6</span>
+                                All Announcement <span><?=count($getCategories)?></span>
                             </p>
                             <p class="p-2">General</p>
-                            <p class="p-2">Lorem Ipsum</p>
-                            <p class="p-2">Lorem Ipsum</p>
-                            <p class="p-2">Lorem Ipsum</p>
+                            <?php foreach($getCategories as $category): ?>
+                            <p class="p-2"><a href="<?=$category["category_id"]?>"><?=$category["category_name"]?></a></p>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                      <!-- Notification -->

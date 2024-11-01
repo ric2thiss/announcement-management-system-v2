@@ -15,7 +15,8 @@ class DashboardController extends Users{
             "pinnedPosts"=>$postModel->getPinnedPost(), 
             "scheduledPosts"=>$postModel->getScheduledpost(),
             "activePostNumber"=>$postModel->activePostNumber(),
-            "scheduledPostsNumber"=>$postModel->scheduledPostsNumber()
+            "scheduledPostsNumber"=>$postModel->scheduledPostsNumber(),
+            "getCategories" => $postModel->getCategories()
             ]);
         }else if($userData["role_name"] == "STUDENT"){
             View::render('student', $userData);

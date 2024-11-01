@@ -20,5 +20,10 @@ class UsersController extends Users{
         // Render the view, passing the pinned posts data
         View::render("posts", ["pinned_posts" => $pinned_posts]);
     }
+
+    public static function open_scheduled_post($id){
+        $scheduled_posts = Users::getScheduledPostPage($id);
+        View::render("pending", ["scheduled_posts" => $scheduled_posts]);
+    }
     
 }

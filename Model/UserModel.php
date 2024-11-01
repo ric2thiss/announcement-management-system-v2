@@ -7,11 +7,23 @@ require('./Db.php');
 class Users extends Database {
     public function getScheduledpost(){
         $conn = $this->Connect();
-        $stmt = $conn->prepare("SELECT p.*,  DATE_FORMAT(sp.schedule_date, '%d, %Y') AS date_only, MONTHNAME(sp.schedule_date) AS month_name
-                                FROM scheduled_posts sp
-                                INNER JOIN posts p ON sp.post_id = p.post_id
-                                WHERE DATE(sp.schedule_date) > CURRENT_DATE
-                                ORDER BY sp.schedule_date ASC
+        $stmt = $conn->prepare("SELECT 
+                                p.*, 
+                                u.*, 
+                                sp.*,  
+                                DATE_FORMAT(sp.schedule_date, '%d, %Y') AS date_only, 
+                                MONTHNAME(sp.schedule_date) AS month_name
+                            FROM 
+                                scheduled_posts sp
+                            INNER JOIN 
+                                posts p ON sp.post_id = p.post_id
+                            INNER JOIN 
+                                users u ON p.user_id = u.user_id  -- Assuming p.user_id links to users
+                            WHERE 
+                                DATE(sp.schedule_date) > CURRENT_DATE
+                            ORDER BY 
+                                sp.schedule_date ASC;
+
                                 ;
                                 ");
         $stmt->execute();
@@ -212,7 +224,7 @@ class Users extends Database {
         
  
         if ($user && password_verify($password, $user["password"])) {
-            // session_start();
+     
             $_SESSION["user_id"] = $user["user_id"];
             $_SESSION["email"] = $user["email"];
             $_SESSION["role"] = $user["role_id"];
@@ -318,7 +330,18 @@ class Users extends Database {
         $conn = $db->Connect();
         
         // Prepare the SQL statement
-        $stmt = $conn->prepare("SELECT * FROM pinned_posts WHERE pinned_id = :pinned_id");
+        $stmt = $conn->prepare("SELECT pinned_posts.*, posts.*, users.*, programs.*, departments.*, roles.*, categories.*,
+                                DATE_FORMAT(pinned_posts.pinned_date, '%d') AS date_only,           
+                                TIME_FORMAT(pinned_posts.pinned_date, '%h:%i %p') AS time_only,  
+                                MONTHNAME(pinned_posts.pinned_date) AS month_name 
+                                FROM pinned_posts 
+                                INNER JOIN posts ON pinned_posts.post_id = posts.post_id
+                                INNER JOIN users ON posts.user_id = users.user_id
+                                INNER JOIN programs ON users.program_id = programs.program_id
+                                INNER JOIN departments ON users.department_id = departments.department_id
+                                INNER JOIN roles ON users.role_id = roles.role_id
+                                INNER JOIN categories ON posts.category_id = categories.category_id
+                                WHERE pinned_id = :pinned_id");
         $stmt->bindParam(":pinned_id", $id);
         
         // Execute the statement
@@ -331,6 +354,63 @@ class Users extends Database {
         }
     }
 
+
+    public static function getScheduledPostPage($id) {
+    try {
+        $db = new Database();
+        $conn = $db->Connect();
+        
+        // Prepare the SQL statement
+        $stmt = $conn->prepare("SELECT 
+                                    scheduled_posts.*, 
+                                    posts.*, 
+                                    users.*, 
+                                    programs.*, 
+                                    departments.*, 
+                                    roles.*, 
+                                    categories.*, 
+                                    DATE_FORMAT(scheduled_posts.schedule_date, '%d') AS date_only, 
+                                    MONTHNAME(scheduled_posts.schedule_date) AS month_name, 
+                                    TIME_FORMAT(scheduled_posts.schedule_date, '%h:%i %p') AS time_only
+                                FROM 
+                                    scheduled_posts 
+                                INNER JOIN 
+                                    posts ON scheduled_posts.post_id = posts.post_id
+                                INNER JOIN 
+                                    users ON posts.user_id = users.user_id
+                                INNER JOIN 
+                                    programs ON users.program_id = programs.program_id
+                                INNER JOIN 
+                                    departments ON users.department_id = departments.department_id
+                                INNER JOIN 
+                                    roles ON users.role_id = roles.role_id
+                                INNER JOIN 
+                                    categories ON posts.category_id = categories.category_id
+                                WHERE 
+                                    scheduled_posts.scheduled_id = :scheduled_id
+                                LIMIT 1;");
+
+        // Bind the parameter and execute
+        $stmt->bindParam(":scheduled_id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Check if data was found
+        if ($result) {
+            return $result;
+        } else {
+            // Log or handle no data found
+            echo "No data found for scheduled_id = $id.";
+            return null;
+        }
+    } catch (PDOException $e) {
+        // Log the error message
+        echo "Error: " . $e->getMessage();
+        return null;
+    }
+}
 
     // For Home Page
 
@@ -376,6 +456,21 @@ class Users extends Database {
         $stmt->execute();
         $result = $stmt->fetchColumn();
         return $result;
+    }
+
+    public static function createCategory(){
+        $db = new Database();
+        $conn = $db->Connect();
+        $stmt = $conn->prepare("INSERT INTO categories(category_name) VALUES (:category_name)");
+        $stmt->bindParam(":category_name", $_POST["category_name"], PDO::PARAM_STR);
+        $result = $stmt->execute();
+
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+
     }
         
     

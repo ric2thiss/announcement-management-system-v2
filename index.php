@@ -47,6 +47,10 @@ Route::post('/dashboard', function(){
     require_once('./Controller/AnnouncementController.php');
     AnnouncementController::post();
 });
+Route::post('/dashboard', function(){
+    require_once('./Controller/CategorySectionController.php');
+    Category::create();
+});
 
 Route::get("/home", function(){
     require_once('./Controller/HomeController.php');
@@ -63,6 +67,10 @@ Route::get('/user/{id}', function($id) {
 Route::get('/posts/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::open_pinned_post($id);  
+});
+Route::get('/pending/{id}', function($id) {
+    require_once('./Controller/UsersController.php');
+    UsersController::open_scheduled_post($id);  
 });
 
 
