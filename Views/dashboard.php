@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +13,11 @@
     <!-- Quiljs -->
     <!-- Include stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <style>
+        a:hover{
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <!-- Header (Sticky) -->
@@ -91,17 +92,17 @@
                     <!-- Total Posts -->
                     <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
                         <h2 class="text-xl text-center font-bold mb-4">Active</h2>
-                        <p class="text-center text-xl" id="post-count"></p>
+                        <p class="text-center text-xl" id="post-count"><?=$activePostNumber?></p>
                     </div>
                     <!-- Pending Posts -->
                     <div class="bg-white p-6 rounded-lg shadow flex-1 mb-8">
                         <h2 class="text-xl text-center font-bold mb-4">Pending</h2>
-                        <p class="text-center text-xl">6</p>
+                        <p class="text-center text-xl">0</p>
                     </div>
                     <!-- Scheduled Posts -->
                     <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
                         <h2 class="text-xl text-center font-bold mb-4">Scheduled</h2>
-                        <p class="text-center text-xl">6</p>
+                        <p class="text-center text-xl"><?=$scheduledPostsNumber?></p>
                     </div>
                     <!-- DisApproved -->
                     <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">

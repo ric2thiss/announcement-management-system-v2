@@ -12,7 +12,11 @@ class DashboardController extends Users{
         if($userData["role_name"] !== 'STUDENT'){
             View::render('dashboard', 
             ["userData"=>$userData, "postCategories"=>$postModel->getCategories(), 
-            "pinnedPosts"=>$postModel->getPinnedPost(), "scheduledPosts"=>$postModel->getScheduledpost()]);
+            "pinnedPosts"=>$postModel->getPinnedPost(), 
+            "scheduledPosts"=>$postModel->getScheduledpost(),
+            "activePostNumber"=>$postModel->activePostNumber(),
+            "scheduledPostsNumber"=>$postModel->scheduledPostsNumber()
+            ]);
         }else if($userData["role_name"] == "STUDENT"){
             View::render('student', $userData);
         }else{

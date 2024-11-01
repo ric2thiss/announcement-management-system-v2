@@ -355,6 +355,28 @@ class Users extends Database {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function activePostNumber(){
+        $conn = $this->Connect();
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM posts WHERE user_id = :user_id");
+        $stmt->bindParam(":user_id", $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;
+    }
+
+    public function scheduledPostsNumber(){
+        $conn = $this->Connect();
+        $stmt = $conn->prepare("SELECT COUNT(*) 
+                                FROM scheduled_posts sp
+                                INNER JOIN posts ON posts.post_id = sp.post_id
+                                WHERE posts.user_id = :user_id;"
+                                );
+        $stmt->bindParam(":user_id", $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;
+    }
         
     
 

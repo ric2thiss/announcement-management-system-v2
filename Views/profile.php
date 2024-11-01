@@ -72,7 +72,7 @@
                                 <p class="text-gray-500"><span id="program"><?= $users["program_name"]?></span> · Member since <span id="month_name"><?=$users["month_name"]?></span> <span id="time_only"><?=$users["time_only"]?></span></p>
                             </div>
                             <?php
-                            if($users["user_id"] === $_SESSION["user_id"]){
+                            if($users["user_id"] == $_SESSION["user_id"]){
                                ?>
                                <div>
                                     <a href="./edit-profile">Edit</a>
