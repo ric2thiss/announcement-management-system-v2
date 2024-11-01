@@ -74,6 +74,7 @@
                     </div>
                     <h4 class="font-bold text-lg mt-4"><?=$pinned_posts["post_title"]?> 🎉</h4>
                     <div class="text-gray-700 mt-2"><?=$pinned_posts["post_content"]?></div>
+                    <div class="my-5 p-2"><img src="../<?=$pinned_posts["images"]?>" alt="Image"></div>
                     <div class="flex items-center space-x-4 mt-4">
                         <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>

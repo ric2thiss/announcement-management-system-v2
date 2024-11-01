@@ -420,7 +420,7 @@ class Users extends Database {
 
         $conn = $db->Connect();
         $stmt = 
-                 $conn->prepare("SELECT posts.*, users.*, departments.*, programs.*, roles.*, 
+                 $conn->prepare("SELECT posts.*, users.*, departments.*, programs.*, roles.*,
                                 DATE_FORMAT(posts.created_at, '%d') AS date, 
                                 MONTHNAME(posts.created_at) AS month, 
                                 TIME_FORMAT(posts.created_at, '%h:%i %p') AS time
@@ -429,7 +429,11 @@ class Users extends Database {
                                 INNER JOIN departments ON users.department_id = departments.department_id
                                 INNER JOIN programs ON users.program_id = programs.program_id
                                 INNER JOIN roles ON users.role_id = roles.role_id
+                                LEFT JOIN scheduled_posts ON posts.post_id = scheduled_posts.post_id
+                                WHERE scheduled_posts.schedule_date IS NULL 
+                                OR DATE(scheduled_posts.schedule_date) <= NOW()
                                 ORDER BY posts.post_id DESC;
+;
                                 ");
         $stmt->execute();
         
