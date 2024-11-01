@@ -117,7 +117,7 @@
                         CREATE Announcement
                     </div> -->
                     <hr class="my-5">
-                    <form id="myForm" action="./dashboard" method="POST" onsubmit="syncQuillContent()">
+                    <form id="myForm" action="./dashboard" method="POST" enctype="multipart/form-data" onsubmit="syncQuillContent()">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                             
                             <div class="flex flex-col">
@@ -140,10 +140,10 @@
                                     </select>
                             </div>
                             
-                            <!-- <div class="flex flex-col">
-                                <label for="where" class="mb-2 font-medium text-gray-700">w:</label>
-                                <input type="text" id="where" name="post_where" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Where'">
-                            </div> -->
+                            <div class="flex flex-col">
+                                <label for="fileToUpload" class="mb-2 font-medium text-gray-700">w:</label>
+                                <input type="file"  name="fileToUpload" id="fileToUpload" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Where'">
+                            </div>
                             
                             <div class="flex flex-col">
                                 <label for="post_when" class="mb-2 font-medium text-gray-700">To be posted on :</label>
@@ -217,9 +217,9 @@
                     <div class="bg-white p-6 mb-8 rounded-lg shadow">
                         <h2 class="text-xl font-bold mb-4">Announcement</h2>
                         <div class="flex justify-between items-center mb-4">
-                            <form action="./dashboard" method="POST" class="flex justify-between gap-1 items-center w-full">
+                            <form action="./category" method="POST" class="flex justify-between gap-1 items-center w-full">
                                 <input type="text" name="category_name" id="" class="p-2 border w-full border-gray-300 rounded-lg" placeholder="Category">
-                                <input type="submit" class="text-white p-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md 
+                                <input type="submit" name="create_category" class="text-white p-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md 
                               cursor-pointer  hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out" value=" + Category">
                             </form>
                         </div>

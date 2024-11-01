@@ -108,6 +108,7 @@
                     </div>
                     <h4 class="font-bold text-lg mt-4"><?=$post["post_title"]?> 🎉</h4>
                     <div class="text-gray-700 mt-2"><?=$post["post_content"]?></div>
+                    <div class="class"><img src="<?=$post["images"]?>" alt=""></div>
                     <div class="flex items-center space-x-4 mt-4">
                         <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>

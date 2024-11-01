@@ -3,7 +3,7 @@
 require('./Model/UserModel.php');
 class Category extends Users{
     public static function create(){
-        if($_SERVER["REQUEST_METHOD"]== "POST"){
+        if($_SERVER["REQUEST_METHOD"]== "POST" && isset($_POST["create_category"])){
             $category_name = trim($_POST["category_name"]);
 
             if(empty($category_name)){

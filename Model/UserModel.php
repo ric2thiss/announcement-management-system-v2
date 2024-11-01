@@ -252,12 +252,12 @@ class Users extends Database {
         return $stmt->fetch(); // Returns the user data as an associative array
     }
 
-    public function createPost($post_title, $post_content, $post_when, $category_id){
+    public function createPost($post_title, $post_content, $post_when, $category_id, $target_file){
         $conn = $this->Connect();
     
         // Fix the SQL query by removing the duplicate :user_id
-        $query = "INSERT INTO posts (post_title, post_content, post_when, user_id, category_id) 
-                  VALUES (:post_title, :post_content, :post_when, :user_id, :category_id)";
+        $query = "INSERT INTO posts (post_title, post_content, post_when, user_id, category_id, images) 
+                  VALUES (:post_title, :post_content, :post_when, :user_id, :category_id, :images)";
     
         $stmt = $conn->prepare($query);
         $stmt->bindParam(':post_title', $post_title);
@@ -265,6 +265,7 @@ class Users extends Database {
         $stmt->bindParam(':post_when', $post_when);
         $stmt->bindParam(':user_id', $_SESSION["user_id"]); // Ensure $_SESSION["user_id"] is set
         $stmt->bindParam(':category_id', $category_id);
+        $stmt->bindParam(":images", $target_file);
         
         if ($stmt->execute()) {
             return true;

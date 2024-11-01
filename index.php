@@ -47,7 +47,7 @@ Route::post('/dashboard', function(){
     require_once('./Controller/AnnouncementController.php');
     AnnouncementController::post();
 });
-Route::post('/dashboard', function(){
+Route::post('/category', function(){
     require_once('./Controller/CategorySectionController.php');
     Category::create();
 });
