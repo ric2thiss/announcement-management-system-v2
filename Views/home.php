@@ -66,16 +66,16 @@
                     <h2 class="text-xl font-bold mb-4">Announcement</h2>
                     <div class="flex justify-between items-center mb-4">
                         <span>Category</span>
-                        <button class="text-blue-500">+ Add new</button>
+                        <!-- <button class="text-blue-500">+ Add new</button> -->
                     </div>
                     <div class="space-y-2">
                         <p class="bg-gray-100 p-4 rounded-lg flex justify-between">
-                            All Announcement <span>6</span>
+                            All Announcement <span><?=count($postCategories)?></span>
                         </p>
                         <p class="p-2">General</p>
-                        <p class="p-2">Lorem Ipsum</p>
-                        <p class="p-2">Lorem Ipsum</p>
-                        <p class="p-2">Lorem Ipsum</p>
+                        <?php foreach($postCategories as $postCategory): ?>
+                            <a href="<?=$postCategory["category_id"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -123,21 +123,23 @@
             <div class="w-1/4">
                 <div class="bg-white p-6 rounded-lg shadow sticky top-24">
                     <h2 class="text-xl font-bold mb-4">Pinned Announcement</h2>
-                    <div class="space-y-4">
-                        <!-- Example of Pinned Announcement -->
-                        <div class="bg-gray-100 p-4 rounded-lg">
-                            <div class="flex items-center space-x-4">
-                                <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
-                                <div>
-                                    <h3 class="font-bold">Ric Charles Paquibot</h3>
-                                    <span class="text-gray-500">Pinned</span>
+                    <?php foreach($pinnedPosts as $pinnedPost):?>
+                        <div class="space-y-4">
+                            <!-- Example of Pinned Announcement -->
+                            <div class="bg-gray-100 p-4 mb-4 rounded-lg">
+                                <div class="flex items-center space-x-4">
+                                    <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <h3 class="font-bold"><a href="./user/<?=$pinnedPost["user_id"]?>"><?=$pinnedPost["first_name"]?> <?=$pinnedPost["last_name"]?></a></h3>
+                                        <span class="text-gray-500">Pinned</span>
+                                    </div>
                                 </div>
+                                <h4 class="font-bold mt-4"><?=$pinnedPost["post_title"]?></h4>
+                                <p class="text-gray-700 mt-2"><?=$pinnedPost["post_content"]?></p>
+                                <a href="./posts/<?=$pinnedPost["pinned_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
-                            <h4 class="font-bold mt-4">Welcome to Announcement...</h4>
-                            <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                            <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
                         </div>
-                    </div>
+                    <?php endforeach ?>
                 </div>
             </div>
         </section>

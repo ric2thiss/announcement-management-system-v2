@@ -229,7 +229,7 @@
                             </p>
                             <p class="p-2">General</p>
                             <?php foreach($getCategories as $category): ?>
-                            <p class="p-2"><a href="<?=$category["category_id"]?>"><?=$category["category_name"]?></a></p>
+                                <a href="<?=$category["category_id"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$category["category_name"]?></p></a>
                             <?php endforeach; ?>
                         </div>
                     </div>

@@ -9,7 +9,7 @@ class DashboardController extends Users{
     
         $postModel = new Users(); 
 
-        if($userData["role_name"] !== 'STUDENT'){
+        if($userData["role_name"] !== 'Student'){
             View::render('dashboard', 
             ["userData"=>$userData, "postCategories"=>$postModel->getCategories(), 
             "pinnedPosts"=>$postModel->getPinnedPost(), 
@@ -18,10 +18,14 @@ class DashboardController extends Users{
             "scheduledPostsNumber"=>$postModel->scheduledPostsNumber(),
             "getCategories" => $postModel->getCategories()
             ]);
-        }else if($userData["role_name"] == "STUDENT"){
-            View::render('student', $userData);
+        }else if($userData["role_name"] == "Student"){
+            View::render('student', ["userData"=> $userData,
+                                    "postCategories"=>$postModel->getCategories(),
+                                    ]);
         }else{
-            View::render('error');
+            View::render('error',function(){
+                echo "You are not authorized to access this page";
+            });
         }
 
     }

@@ -17,6 +17,11 @@
     <!-- Quiljs -->
     <!-- Include stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <style>
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <!-- Header (Sticky) -->
@@ -47,12 +52,12 @@
     <main class="flex">
         <!-- Sidebar (Sticky) -->
         <aside class="w-16 bg-gray-900 text-white flex flex-col items-center space-y-6 py-6 sticky top-14 h-screen">
-            <a href="home.html" class="text-gray-500"><i class="fa-solid fa-house text-xl"></i></a>
-            <a href="calendar.html" class="text-gray-500"><i class="fa-solid fa-calendar-days text-xl"></i></a>
+            <a href="./home" class="text-gray-500"><i class="fa-solid fa-house text-xl"></i></a>
+            <a href="#" class="text-gray-500"><i class="fa-solid fa-calendar-days text-xl"></i></a>
             <a href="#" class="text-gray-500"><i class="fa-solid fa-comments text-xl"></i></a>
-            <a href="department.html" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
+            <a href="#" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
             <a href="#" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
-            <a href="dashboard.html" class="text-white"><i class="fa-solid fa-user text-xl"></i></a>
+            <a href="./dashboard" class="text-white"><i class="fa-solid fa-user text-xl"></i></a>
         </aside>
 
         <!-- Main Content -->
@@ -68,8 +73,8 @@
                         <img src="./assets/profile.jpg" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">
                             <div>
-                                <h3 class="font-bold" id="user-name"><?php echo $data["first_name"] . " " . $data["middle_initial"] . ". " . $data["last_name"]; ?></h3>
-                                <p class="text-gray-500"><span id="program"><?= $data["program_id"]?></span> · <span id="month_name"><?=$data["month_name"]?></span> <span id="time_only"><?=$data["time_only"]?></span></p>
+                                <h3 class="font-bold" id="user-name"><?php echo $userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"]; ?></h3>
+                                <p class="text-gray-500"><span id="program"><?= $userData["program_name"]?></span> · <span id="month_name"><?=$userData["month_name"]?></span> <span id="time_only"><?=$userData["time_only"]?></span></p>
                             </div>
                             <div>
                                 <a href="">Edit</a>
@@ -83,32 +88,11 @@
                     <hr class="mt-5">
                     <div>
                         <p class="text-gray-500">Bio</p>
-                        Hi, I'm <span class="underline underline-offset-4"><?=$data["first_name"] . " " . $data["middle_initial"] . ". " . $data["last_name"];?></span> and I am a <?=$data["program_id"]?> <?=$data["role_name"]?> under the Department of <?=$data["department_id"]?>
+                        Hi, I'm <span class="underline underline-offset-4"><?=$userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"];?></span> and I am a <?=$userData["program_name"]?> <?=$userData["role_name"]?> under the Department of <?=$userData["department_name"]?>
                     </div>
                 </div>
                 <!-- Dashboard feature -->
-                 <div class="rounded-lg flex space-x-8">
-                    <!-- Total Posts -->
-                    <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
-                        <h2 class="text-xl text-center font-bold mb-4">Posted</h2>
-                        <p class="text-center text-xl" id="post-count"></p>
-                    </div>
-                    <!-- Pending Posts -->
-                    <div class="bg-white p-6 rounded-lg shadow flex-1 mb-8">
-                        <h2 class="text-xl text-center font-bold mb-4">Pending</h2>
-                        <p class="text-center text-xl">6</p>
-                    </div>
-                    <!-- Scheduled Posts -->
-                    <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
-                        <h2 class="text-xl text-center font-bold mb-4">Scheduled</h2>
-                        <p class="text-center text-xl">6</p>
-                    </div>
-                    <!-- DisApproved -->
-                    <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
-                        <h2 class="text-xl text-center font-bold mb-4">Deleted</h2>
-                        <p class="text-center text-xl">6</p>
-                    </div>
-                 </div>
+                
                 <!-- Create Announcement -->
 
             </div>
@@ -117,7 +101,7 @@
             <div class="w-1/4">
                 <div class="sticky top-24">
                     <div class="bg-white p-6 rounded-lg mb-8 shadow">
-                        <h2 class="text-xl font-bold mb-4">Pinned Announcement</h2>
+                        <h2 class="text-xl font-bold mb-4">My Pinned</h2>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 rounded-lg">
@@ -135,10 +119,10 @@
                         </div>
                     </div>
                     <!-- Scheduled Post Section -->
-                    <div class="bg-white p-6 rounded-lg shadow">
+                    <!-- <div class="bg-white p-6 rounded-lg shadow">
                         <h2 class="text-xl font-bold mb-4">Scheduled Post</h2>
                         <div class="space-y-4">
-                            <!-- Example of Pinned Announcement -->
+
                             <div class="bg-gray-100 p-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
                                     <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
@@ -152,7 +136,7 @@
                                 <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 
             </div>
@@ -164,16 +148,16 @@
                         <h2 class="text-xl font-bold mb-4">Announcement</h2>
                         <div class="flex justify-between items-center mb-4">
                             <span>Category</span>
-                            <button class="text-blue-500">+ Add new</button>
+                            <!-- <button class="text-blue-500">+ Add new</button> -->
                         </div>
                         <div class="space-y-2">
                             <p class="bg-gray-100 p-4 rounded-lg flex justify-between">
-                                All Announcement <span>6</span>
+                                All Announcement <span><?=count($postCategories)?></span>
                             </p>
                             <p class="p-2">General</p>
-                            <p class="p-2">Lorem Ipsum</p>
-                            <p class="p-2">Lorem Ipsum</p>
-                            <p class="p-2">Lorem Ipsum</p>
+                            <?php foreach($postCategories as $postCategory): ?>
+                                <a href="<?=$postCategory["category_id"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                      <!-- Notification -->
