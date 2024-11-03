@@ -98,6 +98,7 @@
                 <!-- Example of Announcement Post -->
 
                 <?php foreach($posts as $post): ?>
+                    
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
                     <div class="flex items-center space-x-4 justify-between">
                         <div class="flex items-center space-x-4">
@@ -116,7 +117,7 @@
                     <div class="text-gray-700 mt-2"><?=$post["post_content"]?></div>
                     <div class="my-5 p-2"><img src="<?=$post["images"]?>" alt="Image"></div>
                     <div class="flex items-center space-x-4 mt-4">
-                        <button class="text-blue-500" id="like"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+                        <button class="text-blue-500" id="like" data-postId="<?=$post["post_id"]?>" onclick="likeFunction(this)"><i class="fa-solid fa-thumbs-up"></i> Like</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
                         <button class="text-blue-500"><i class="fa-solid fa-share"></i> Share</button>
                         <button class="text-blue-500"><i class="fa-solid fa-eye"></i> View Full Post</button>
@@ -152,35 +153,68 @@
     </main>
 
     <script>
-    // Add event listener to like button
-    const like = document.getElementById("like");
 
-    like.addEventListener("click", () => {
-        console.log("like btn clicked");
+    // fetch("http://localhost/announcement-management-system/ams/engagement/like", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ post_id: postId })
+    // })
+    // .then(res => {
+    //     if (!res.ok) {
+    //         throw new Error("Error");
+    //     }
+    //     return res.json(); // Parse the JSON response
+    // })
+    // .then(responseData => {
+    //     console.log(responseData);
+        
+    //     if (responseData.status === 'success') {
+    //         element.classList.toggle('text-yellow-500');
+    //     } else if (responseData.status === 'failed') {
+    //         element.classList.toggle('text-blue-500');
+    //     } else {
+    //         console.log('Error');
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error("Error", error);
+    // });
 
-        // Use fetch with .then() and .catch() instead of async/await
-        fetch("http://localhost/announcement-management-system/ams/engagement/like", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ post_id: <?= json_encode($post["post_id"]) ?> }) // Use json_encode for safety
-        })
-        .then((res) => {
+
+    async function likeFunction(element) {
+        let postId = element.getAttribute('data-postId');
+        
+        try {
+            const res = await fetch("http://localhost/announcement-management-system/ams/engagement/like", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ post_id: postId })
+            });
+            
             if (!res.ok) {
-                throw new Error("Network response was not ok: " + res.statusText);
+                throw new Error("Error");
             }
-            return res.json(); // Return the parsed JSON response
-        })
-        .then((data) => {
-            console.log("LIKE", data); // Log the response data for debugging
-        })
-        .catch((error) => {
-            console.error("Request failed", error); // Handle any errors
-        });
-    });
 
-    
+            const responseData = await res.json(); // Await the JSON parsing
+            console.log(responseData);
+            if(responseData.status === 'success'){
+                element.classList.toggle('text-yellow-500');
+            }else if(responseData.status === 'failed'){
+                element.classList.toggle('text-blue-500');
+            }else{
+                console.log('Error');
+            }
+            
+        } catch (error) {
+            console.error("Error", error);
+        }
+    }
+
+
     </script>
 </body>
 </html>
