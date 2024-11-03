@@ -9,6 +9,7 @@ class HomeController extends Users{
         $postModel = new Users();
         View::render("home", ["posts" => Users::getAllPosts(),
                               "postCategories"=>$postModel->getCategories(),
-                              "pinnedPosts"=>$postModel->getPinnedPost()]);
+                              "pinnedPosts"=>$postModel->getPinnedPost()
+                            ]);
     }
 }

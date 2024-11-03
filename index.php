@@ -73,6 +73,11 @@ Route::get('/pending/{id}', function($id) {
     UsersController::open_scheduled_post($id);  
 });
 
+Route::post('/engagement/{action}', function($action){
+    require_once('./Controller/EngagementController.php');
+    EngagementController::make_engagement($action);
+});
+
 
 
 
