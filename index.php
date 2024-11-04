@@ -78,6 +78,11 @@ Route::post('/engagement/{action}', function($action){
     EngagementController::make_engagement($action);
 });
 
+Route::get('/engagement/{action}', function($action){
+    require_once('./Controller/EngagementController.php');
+    EngagementController::get_engagement($action);
+});
+
 
 
 

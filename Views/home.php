@@ -1,6 +1,6 @@
 <?php
 
-// print_r($posts)
+// print_r($get_users_pinned_posts)
 
 ?>
 
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="p-2 px-4 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-thumbtack" style="transform:rotate(30deg);"></i></button>
+                            <button class="p-2 px-4 rounded-lg hover:bg-gray-100" data-postId="<?=$post["post_id"]?>" onclick="pinFunction(this)"><i class="fa-solid fa-thumbtack" style="transform:rotate(30deg);"></i></button>
                         </div>
                         
                     </div>
@@ -154,33 +154,62 @@
 
     <script>
 
-    // fetch("http://localhost/announcement-management-system/ams/engagement/like", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ post_id: postId })
-    // })
-    // .then(res => {
-    //     if (!res.ok) {
-    //         throw new Error("Error");
+    // async function get_like_counts(element) {
+    //     const likeBtn = element.getAttribute("data-postId");
+    //     try {
+    //         const response = await fetch('http://localhost/announcement-management-system/ams/engagement/like');
+            
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+
+    //         const data = await response.json();
+
+            
+
+         
+            
+    //     } catch (err) {
+    //         console.error("Error:", err);
     //     }
-    //     return res.json(); // Parse the JSON response
-    // })
-    // .then(responseData => {
-    //     console.log(responseData);
+    // }
+    async function pinFunction(element) {
+    let postId = element.getAttribute('data-postId');
+    console.log("Post ID:", postId);
+    
+    try {
+        const res = await fetch("http://localhost/announcement-management-system/ams/engagement/pin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ post_id: postId })
+        });
         
-    //     if (responseData.status === 'success') {
-    //         element.classList.toggle('text-yellow-500');
-    //     } else if (responseData.status === 'failed') {
-    //         element.classList.toggle('text-blue-500');
-    //     } else {
-    //         console.log('Error');
-    //     }
-    // })
-    // .catch(error => {
-    //     console.error("Error", error);
-    // });
+        if (!res.ok) {
+            throw new Error(`Error: ${res.status} ${res.statusText}`);
+        }
+        
+        const responseData = await res.json();
+        console.log("Response Data:", responseData);
+        
+        // Toggle pin appearance based on response
+        if (responseData.status === "success") {
+            if (responseData.message === "Post pinned") {
+                element.classList.add("bg-gray-100");  // Add pinned style
+                console.log("Post pinned successfully.");
+            } else if (responseData.message === "Post unpinned") {
+                element.classList.remove("bg-gray-100");  // Remove pinned style
+                console.log("Post unpinned successfully.");
+            }
+        } else {
+            console.log("Failed to pin/unpin post.");
+        }
+        
+    } catch (error) {
+        console.error("Fetch Error:", error);
+    }
+}
 
 
     async function likeFunction(element) {
@@ -194,19 +223,19 @@
                 },
                 body: JSON.stringify({ post_id: postId })
             });
-            
+          
             if (!res.ok) {
-                throw new Error("Error");
+                throw new Error("Error", res.statusText);
             }
-
-            const responseData = await res.json(); // Await the JSON parsing
+            // get_like_counts();
+            const responseData = await res.json(); 
             console.log(responseData);
-            if(responseData.status === 'success'){
-                element.classList.toggle('text-yellow-500');
-            }else if(responseData.status === 'failed'){
-                element.classList.toggle('text-blue-500');
-            }else{
-                console.log('Error');
+            if(responseData.status == 'success'){
+                element.classList.add('text-yellow-500');
+            }
+            
+            if(responseData.status == 'failed'){
+                element.classList.remove('text-yellow-500');
             }
             
         } catch (error) {

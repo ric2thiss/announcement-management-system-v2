@@ -103,19 +103,21 @@
                     <div class="bg-white p-6 rounded-lg mb-8 shadow">
                         <h2 class="text-xl font-bold mb-4">My Pinned</h2>
                         <div class="space-y-4">
+                            <?php foreach($get_users_pinned_posts as $pinned_post): ?>
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
                                     <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
-                                        <h3 class="font-bold">Ric Charles Paquibot</h3>
+                                        <h3 class="font-bold"><?=$pinned_post["first_name"]?> <?=$pinned_post["last_name"]?></h3>
                                         <span class="text-gray-500">Pinned</span>
                                     </div>
                                 </div>
-                                <h4 class="font-bold mt-4">Welcome to Announcement...</h4>
-                                <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                                <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <h4 class="font-bold mt-4"><?=$pinned_post["post_title"]?></h4>
+                                <p class="text-gray-700 mt-2"><?=$pinned_post["post_content"]?></p>
+                                <a href="./posts/<?=$pinned_post["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
+                            <?php endforeach ?>
                         </div>
                     </div>
                     <!-- Scheduled Post Section -->

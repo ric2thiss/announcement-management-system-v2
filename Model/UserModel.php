@@ -324,7 +324,34 @@ class Users extends Database {
         return null;
     }
     
-    
+    // public static function getPost($id) {
+    //     $db = new Database();
+    //     $conn = $db->Connect();
+        
+    //     // Prepare the SQL statement
+    //     $stmt = $conn->prepare("SELECT pinned_posts.*, posts.*, users.*, programs.*, departments.*, roles.*, categories.*,
+    //                             DATE_FORMAT(pinned_posts.pinned_date, '%d') AS date_only,           
+    //                             TIME_FORMAT(pinned_posts.pinned_date, '%h:%i %p') AS time_only,  
+    //                             MONTHNAME(pinned_posts.pinned_date) AS month_name 
+    //                             FROM pinned_posts 
+    //                             INNER JOIN posts ON pinned_posts.post_id = posts.post_id
+    //                             INNER JOIN users ON posts.user_id = users.user_id
+    //                             INNER JOIN programs ON users.program_id = programs.program_id
+    //                             INNER JOIN departments ON users.department_id = departments.department_id
+    //                             INNER JOIN roles ON users.role_id = roles.role_id
+    //                             INNER JOIN categories ON posts.category_id = categories.category_id
+    //                             WHERE posts.post_id = :post_id");
+    //     $stmt->bindParam(":post_id", $id);
+        
+    //     // Execute the statement
+    //     if ($stmt->execute()) {
+    //         // Fetch a single record
+    //         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //         return $result ? $result : null; 
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
     public static function getPinnedPostPage($id) {
         $db = new Database();
@@ -414,6 +441,29 @@ class Users extends Database {
 }
 
     // For Home Page
+
+    public static function get_users_pinned_posts($user_id) {
+        $db = new Database();
+        $conn = $db->Connect();
+    
+        $stmt = $conn->prepare("SELECT ups.*, p.*, u.* 
+            FROM users_pinned_posts ups
+            INNER JOIN posts p ON ups.post_id = p.post_id
+            LEFT JOIN users u ON u.user_id = p.user_id
+            WHERE ups.user_id = :user_id
+        ");
+    
+        $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Optionally close the connection
+        // $conn = null;
+    
+        return $result;
+    }
+    
 
     public static function getAllPosts(){
         $db = new Database();

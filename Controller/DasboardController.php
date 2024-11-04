@@ -21,6 +21,7 @@ class DashboardController extends Users{
         }else if($userData["role_name"] == "Student"){
             View::render('student', ["userData"=> $userData,
                                     "postCategories"=>$postModel->getCategories(),
+                                    "get_users_pinned_posts"=>$postModel->get_users_pinned_posts($_SESSION["user_id"]),
                                     ]);
         }else{
             View::render('error',function(){
