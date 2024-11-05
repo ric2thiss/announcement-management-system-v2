@@ -67,7 +67,7 @@
                     <div class="flex items-center space-x-4">
                         <img src="../assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
                         <div>
-                            <h3 class="font-bold"><a href="./user/<?=$scheduled_posts["user_id"]?>"><?=$scheduled_posts["first_name"]?> <?=$scheduled_posts["last_name"]?></a></h3>
+                            <h3 class="font-bold"><a href="../user/<?=$scheduled_posts["user_id"]?>"><?=$scheduled_posts["first_name"]?> <?=$scheduled_posts["last_name"]?></a></h3>
                             <p class="text-gray-500"><?=$scheduled_posts["role_name"]?> · Will be post on <?=$scheduled_posts["month_name"]?> <?=$scheduled_posts["date_only"]?>, <?=$scheduled_posts["time_only"]?></p>
                         </div>
                     </div>

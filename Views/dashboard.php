@@ -181,7 +181,7 @@
                                 </div>
                                 <h4 class="font-bold mt-4"><?=$pinnedPost["post_title"]?></h4>
                                 <p class="text-gray-700 mt-2"><?=$pinnedPost["post_content"]?></p>
-                                <a href="./posts/<?=$pinnedPost["pinned_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <a href="./posts/<?=$pinnedPost["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
                         <?php endforeach ?>
@@ -202,7 +202,7 @@
                                 </div>
                                 <h4 class="font-bold mt-4"><?=$scheduledPost["post_title"]?></h4>
                                 <p class="text-gray-700 mt-2"><?=$scheduledPost["post_content"]?></p>
-                                <a href="./pending/<?=$scheduledPost["scheduled_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <a href="./scheduledpost/<?=$scheduledPost["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
                         <?php endforeach ?>

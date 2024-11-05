@@ -68,7 +68,7 @@
                     <div class="flex items-center space-x-4">
                         <img src="../assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
                         <div>
-                            <h3 class="font-bold"><a href="./user/<?=$pinned_posts["user_id"]?>"><?=$pinned_posts["first_name"]?> <?=$pinned_posts["last_name"]?></a></h3>
+                            <h3 class="font-bold"><a href="../user/<?=$pinned_posts["user_id"]?>"><?=$pinned_posts["first_name"]?> <?=$pinned_posts["last_name"]?></a></h3>
                             <p class="text-gray-500"><?=$pinned_posts["role_name"]?> · <?=$pinned_posts["month_name"]?> <?=$pinned_posts["date_only"]?>, <?=$pinned_posts["time_only"]?></p>
                         </div>
                     </div>

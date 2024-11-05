@@ -23,7 +23,7 @@ class UsersController extends Users{
 
     public static function open_scheduled_post($id){
         $scheduled_posts = Users::getScheduledPostPage($id);
-        View::render("pending", ["scheduled_posts" => $scheduled_posts]);
+        View::render("scheduledpost", ["scheduled_posts" => $scheduled_posts]);
     }
     
 }

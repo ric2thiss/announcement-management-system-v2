@@ -68,7 +68,7 @@ Route::get('/posts/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::open_pinned_post($id);  
 });
-Route::get('/pending/{id}', function($id) {
+Route::get('/scheduledpost/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::open_scheduled_post($id);  
 });
@@ -81,6 +81,10 @@ Route::post('/engagement/{action}', function($action){
 Route::get('/engagement/{action}', function($action){
     require_once('./Controller/EngagementController.php');
     EngagementController::get_engagement($action);
+});
+
+Route::get('/calendar', function(){
+    View::render('calendar');
 });
 
 

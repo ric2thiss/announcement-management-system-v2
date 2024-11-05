@@ -143,7 +143,7 @@
                                 </div>
                                 <h4 class="font-bold mt-4"><?=$pinnedPost["post_title"]?></h4>
                                 <p class="text-gray-700 mt-2"><?=$pinnedPost["post_content"]?></p>
-                                <a href="./posts/<?=$pinnedPost["pinned_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <a href="./posts/<?=$pinnedPost["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
                     <?php endforeach ?>

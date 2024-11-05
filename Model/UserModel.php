@@ -18,7 +18,7 @@ class Users extends Database {
                             INNER JOIN 
                                 posts p ON sp.post_id = p.post_id
                             INNER JOIN 
-                                users u ON p.user_id = u.user_id  -- Assuming p.user_id links to users
+                                users u ON p.user_id = u.user_id  
                             WHERE 
                                 DATE(sp.schedule_date) > CURRENT_DATE
                             ORDER BY 
@@ -40,47 +40,45 @@ class Users extends Database {
                                 ");
     
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Fetch all matching rows as an associative array
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
         
-        return $result; // Return the retrieved posts
+        return $result; 
     }    
 
     public function getCategories() {
-        $conn = $this->Connect(); // Ensure this method properly establishes a database connection
+        $conn = $this->Connect(); 
         $stmt = $conn->prepare("SELECT category_name, category_id FROM categories");
         $stmt->execute();
-        
-        // Fetch all results as an associative array
+
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
         return $result;
     }
     
     
     public function getInitialData(){
-        // begin transaction
+
         $conn = $this->Connect();
         self::setPinnedPosts();
         $conn->beginTransaction();
         
-        // Query to fetch roles
+
         $stmtRoles = $conn->prepare("SELECT role_name, role_id FROM roles");
         $stmtRoles->execute();
         $roles = $stmtRoles->fetchAll(PDO::FETCH_ASSOC);
 
-        // Query to fetch programs
+
         $stmtPrograms = $conn->prepare("SELECT program_name, program_id FROM programs");
         $stmtPrograms->execute();
         $programs = $stmtPrograms->fetchAll(PDO::FETCH_ASSOC);
 
-        // Query to fetch departments
+
         $stmtDepartments = $conn->prepare("SELECT department_name, department_id FROM departments");
         $stmtDepartments->execute();
         $departments = $stmtDepartments->fetchAll(PDO::FETCH_ASSOC);
 
-        // Commit the transaction
+
         $conn->commit();
 
-        // Return all the data as an associative array
         return [
             'roles' => $roles,
             'programs' => $programs,
@@ -88,45 +86,6 @@ class Users extends Database {
         ];
     }
 
-
-    // public function CreateUser($idnumber, $firstname, $lastname,$middleinitial, $email, $password, $program, $department, $contactnumber, $purok, $barangay, $city, $province, $zip){
-    //     $conn = $this->Connect();
-    //     $query = "SELECT idnumber, email FROM  users_account WHERE idnumber = :idnumber OR email = :email";
-    //     $stmt = $conn->prepare($query);
-    //     $stmt->bindParam(':idnumber', $idnumber);
-    //     $stmt->bindParam(':email', $email);
-    //     $stmt->execute();
-
-    //     if($stmt->rowCount() > 0){
-    //         return false;
-    //     }else{
-    //         // hash the password 
-    //         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    //         $query = "INSERT INTO users_account(idnumber, firstname, lastname, middleinitial, email, password, program, department, contactnumber, purok, barangay, city, province, zip)
-    //                   VALUES(:idnumber, :firstname, :lastname, :middleinitial, :email, :password, :program, :department, :contactnumber, :purok, :barangay, :city, :province, :zip)";
-
-                      
-
-    //         $stmt = $this->Connect()->prepare($query);
-    //         $stmt->bindParam(":idnumber",$idnumber);
-    //         $stmt->bindParam(":firstname",$firstname);
-    //         $stmt->bindParam(":lastname",$lastname);
-    //         $stmt->bindParam(":middleinitial",$middleinitial);
-    //         $stmt->bindParam(":email",$email);
-    //         $stmt->bindParam(":password", $hashed_password);
-    //         $stmt->bindParam(":program",$program);
-    //         $stmt->bindParam(":department",$department);
-    //         $stmt->bindParam(":contactnumber",$contactnumber);
-    //         $stmt->bindParam(":purok", $purok);
-    //         $stmt->bindParam(":barangay",$barangay);
-    //         $stmt->bindParam(":city",$city);
-    //         $stmt->bindParam(":province",$province);
-    //         $stmt->bindParam(":zip",$zip);
-    //         $stmt->execute();
-    //         return true;
-    //     }
-        
-    // }
     public function CreateUser(
         $id_number,
         $first_name,
@@ -192,29 +151,7 @@ class Users extends Database {
             return false;
         }
     }
-    
-    
-    // public function AuthenticateUser($email, $password) {
-    //     $conn = $this->Connect();
-    //     $stmt = $conn->prepare("SELECT * FROM users_account WHERE email = :email");
-    //     $stmt->execute(["email" => $email]);
-    //     $user = $stmt->fetch(); 
 
- 
-    //     if ($user && password_verify($password, $user["password"])) {
-    //         session_start();
-    //         $_SESSION["user_id"] = $user["id"];
-    //         $_SESSION["email"] = $user["email"];
-    //         if($user["role"] == "admin"){
-    //             $_SESSION["role"] = "admin";
-    //         }else if($user["role"] == "student"){
-    //             $_SESSION["role"] = "student";
-    //         }
-    //         return true; 
-    //     }
-
-    //     return false; 
-    // }
     public function AuthenticateUser($email, $password) {
         $conn = $this->Connect();
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
@@ -369,8 +306,8 @@ class Users extends Database {
                                 INNER JOIN departments ON users.department_id = departments.department_id
                                 INNER JOIN roles ON users.role_id = roles.role_id
                                 INNER JOIN categories ON posts.category_id = categories.category_id
-                                WHERE pinned_id = :pinned_id");
-        $stmt->bindParam(":pinned_id", $id);
+                                WHERE pinned_posts.post_id = :post_id");
+        $stmt->bindParam(":post_id", $id);
         
         // Execute the statement
         if ($stmt->execute()) {
@@ -415,11 +352,11 @@ class Users extends Database {
                                 INNER JOIN 
                                     categories ON posts.category_id = categories.category_id
                                 WHERE 
-                                    scheduled_posts.scheduled_id = :scheduled_id
+                                    scheduled_posts.post_id = :post_id
                                 LIMIT 1;");
 
         // Bind the parameter and execute
-        $stmt->bindParam(":scheduled_id", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":post_id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
         // Fetch the result
@@ -457,9 +394,6 @@ class Users extends Database {
         $stmt->execute();
         
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Optionally close the connection
-        // $conn = null;
     
         return $result;
     }
