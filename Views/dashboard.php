@@ -90,10 +90,12 @@
                 <!-- Dashboard feature -->
                  <div class="rounded-lg flex space-x-8">
                     <!-- Total Posts -->
-                    <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
-                        <h2 class="text-xl text-center font-bold mb-4">Active</h2>
-                        <p class="text-center text-xl" id="post-count"><?=$activePostNumber?></p>
-                    </div>
+                    <a href="./post/active"  class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
+                        <div>
+                            <h2 class="text-xl text-center font-bold mb-4">Active</h2>
+                            <p class="text-center text-xl" id="post-count"><?=$activePostNumber?></p>
+                        </div>
+                    </a>
                     <!-- Pending Posts -->
                     <div class="bg-white p-6 rounded-lg shadow flex-1 mb-8">
                         <h2 class="text-xl text-center font-bold mb-4">Pending</h2>
@@ -227,7 +229,6 @@
                             <p class="bg-gray-100 p-4 rounded-lg flex justify-between">
                                 All Announcement <span><?=count($getCategories)?></span>
                             </p>
-                            <p class="p-2">General</p>
                             <?php foreach($getCategories as $category): ?>
                                 <a href="<?=$category["category_id"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$category["category_name"]?></p></a>
                             <?php endforeach; ?>
@@ -250,26 +251,7 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <!-- Initialize Quill editor -->
     <script>
-        // getUserData();
-        // async function getUserData(){
-        //     const res = await fetch("User.php");
-        //     if(!res.ok){
-        //         throw new Error("Network response was not ok");
-        //     }
-        //     const data = await res.json();
-        //     console.log(data);
-        //     // Check if user is valid or currently loggedin or exist
-        //     if(data.status === "error"){
-        //         window.location.href = data.route;
-        //     }
-        //     // console.log(data);
-        //     const {firstname, middleinitial, lastname, department, program, month_name, time_only} = data
-        //     document.getElementById("user-name").textContent = `${firstname} ${middleinitial}. ${lastname}`;
-        //     document.getElementById("program").textContent = `${program}`;
-        //     document.getElementById("month_name").textContent = `${month_name}`;
-        //     document.getElementById("time_only").textContent = `${time_only}`;
-            
-        // }
+    
 
 
         const quill = new Quill('#editor', {
@@ -286,68 +268,6 @@
         function syncQuillContent() {
             document.getElementById('post_content').value = quill.root.innerHTML;
         }
-
-
-
-        // const postBtn = document.getElementById("post")
-
-
-        // // Get form
-        // document.getElementById("myForm").onsubmit = (event)=>{
-        //     event.preventDefault();
-        //     // console.log(quill.root.innerHTML)
-        //     const what = document.getElementById("what").value
-        //     const who = document.getElementById("who").value
-        //     const where = document.getElementById("where").value
-        //     const when = document.getElementById("when").value
-        //     const content = quill.root.innerHTML;
-
-        //     const post_data = {
-        //        what,
-        //        who,
-        //        where,
-        //        when,
-        //        content
-        //     }
-
-        //     console.log(post_data)
-
-
-
-        //     fetch("Create.php", {
-        //         method : "POST",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify(post_data)
-        //     })
-        //     .then(res => {
-        //         if(!res.ok){
-        //              throw new Error("Network response was not ok");
-        //         }
-        //         return res.json()
-        //     })
-        //     .then(data => {
-        //         // alert(data.message)
-        //         if(data.status === "success"){
-        //             document.getElementById("myForm").reset();
-        //             quill.setContents([]);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('There has been a problem with your fetch operation:', error);
-        //     })
-
-        //     post();
-        // }
-
-
-        // async function post(){
-        //     const res = await fetch("getpostcontroller.php");
-        //     const data = await res.json();
-        //     console.log(data)
-        //     document.getElementById("post-count").textContent = data;
-        // }
 
     </script>
 </body>

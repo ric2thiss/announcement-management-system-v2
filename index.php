@@ -68,6 +68,9 @@ Route::get('/posts/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::open_pinned_post($id);  
 });
+Route::get('/post/active', function(){
+    return "HELLO ACTIVE";
+});
 Route::get('/scheduledpost/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::open_scheduled_post($id);  
@@ -98,37 +101,3 @@ $requestUri = "/".$path ;
 
 // Return the request 
 Route::dispatch($requestUri);
-
-
-
-
-
-
-
-
-// $segments = explode('/', $path);
-// // print_r($segments);
-
-// if($segments[0] === "home"){
-//     include_once('home.html');
-// }else if($segments[0] === "dashboard"){
-//     include_once('dashboard.html');
-// }else if(str_contains($segments[0], "calendar")){
-//     // $link = $segments[0];
-//     // $link = str_replace(".js", "", $link);
-//     // include_once($link.'.html');
-//     include_once('404.html');
-// }else{
-//     http_response_code(404);
-//     echo json_encode(['error' => 'Route not found']);
-// }
-
-// if(count($segments)==1 && $segments[0] === "home"){
-//     $path = (int)$segments[1];
-//     echo $path;
-// }else {
-//     // For any other routes, return a 404 response
-//     http_response_code(404);
-//     echo $path;
-//     echo json_encode(['error' => 'Route not found']);
-// }
