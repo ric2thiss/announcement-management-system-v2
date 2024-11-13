@@ -230,7 +230,7 @@
                                 All Announcement <span><?=count($getCategories)?></span>
                             </p>
                             <?php foreach($getCategories as $category): ?>
-                                <a href="<?=$category["category_id"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$category["category_name"]?></p></a>
+                                <a href="./category/<?=$category["category_name"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$category["category_name"]?></p></a>
                             <?php endforeach; ?>
                         </div>
                     </div>

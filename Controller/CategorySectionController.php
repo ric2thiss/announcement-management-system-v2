@@ -24,7 +24,15 @@ class Category extends Users{
                     </script>";
                 }
             }
-        } 
+        }
     }
+
+//     public static function show($category){
+//         $userModel = new Users();
+//         $posts = $userModel->getAllPosts();
+//         foreach($posts["category"])
+
+// // print_r($userModel->getAllPosts());
+//     }
 
 }

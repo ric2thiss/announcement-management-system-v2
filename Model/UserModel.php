@@ -488,8 +488,14 @@ class Users extends Database {
         }else{
             return false;
         }
-
     }
+
+    // public static function showAllPostOfTheCategory(){
+    //     $db = new Database();
+    //     $conn = $db->Connect();
+    //     $stmt = $conn->prepare("SELECT posts.* ,
+    //                             FROM posts");
+    // }
         
     
 

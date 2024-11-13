@@ -51,6 +51,10 @@ Route::post('/category', function(){
     require_once('./Controller/CategorySectionController.php');
     Category::create();
 });
+Route::get('/category/{category}', function($category){
+    require_once('./Controller/CategorySectionController.php');
+    Category::show($category);
+});
 
 Route::get("/home", function(){
     require_once('./Controller/HomeController.php');
@@ -69,7 +73,7 @@ Route::get('/posts/{id}', function($id) {
     UsersController::open_pinned_post($id);  
 });
 Route::get('/post/active', function(){
-    return "HELLO ACTIVE";
+    View::render("active");
 });
 Route::get('/scheduledpost/{id}', function($id) {
     require_once('./Controller/UsersController.php');
@@ -101,6 +105,8 @@ Route::post('/edit-profile', function(){
     require_once('./Controller/EditProfileController.php');
     EditProfileController::show();
 });
+
+
 
 
 
