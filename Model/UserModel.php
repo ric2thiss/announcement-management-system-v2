@@ -433,11 +433,12 @@ class Users extends Database {
 
         $conn = $db->Connect();
         $stmt = 
-                 $conn->prepare("SELECT posts.*, users.*, departments.*, programs.*, roles.*,
+                 $conn->prepare("SELECT posts.*, users.*, departments.*, programs.*, roles.*,categories.*,
                                 DATE_FORMAT(posts.created_at, '%d') AS date, 
                                 MONTHNAME(posts.created_at) AS month, 
                                 TIME_FORMAT(posts.created_at, '%h:%i %p') AS time
                                 FROM posts
+                                INNER JOIN categories ON categories.category_id = posts.category_id
                                 INNER JOIN users ON users.user_id = posts.user_id
                                 INNER JOIN departments ON users.department_id = departments.department_id
                                 INNER JOIN programs ON users.program_id = programs.program_id

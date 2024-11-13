@@ -27,12 +27,19 @@ class Category extends Users{
         }
     }
 
-//     public static function show($category){
-//         $userModel = new Users();
-//         $posts = $userModel->getAllPosts();
-//         foreach($posts["category"])
+    public static function show($category){
+        $userModel = new Users();
+        $posts = $userModel->getAllPosts();
+        $filteredPosts = [];
+        foreach($posts as $post){
+            if($post["category_name"] === $category){
+                $filteredPosts[] = $post;
+            }
+        }
 
-// // print_r($userModel->getAllPosts());
-//     }
+        // print_r($filteredPosts);
+
+        View::render('filteredCategoryPosts', ["filteredPosts" => $filteredPosts] );
+    }
 
 }
