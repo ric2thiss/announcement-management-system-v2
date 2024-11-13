@@ -77,7 +77,7 @@
                                 <p class="text-gray-500"><span id="program"><?= $userData["program_name"]?></span> · <span id="month_name"><?=$userData["month_name"]?></span> <span id="time_only"><?=$userData["time_only"]?></span></p>
                             </div>
                             <div>
-                                <a href="">Edit</a>
+                                <a href="./edit-profile">Edit</a>
                                 <span class="mx-4"> | </span>
                                 <a href="">Settings</a>
                                 <span class="mx-4"> | </span>

@@ -92,6 +92,18 @@ Route::get('/calendar', function(){
 
 
 
+// For edit profile route
+Route::get('/edit-profile', function(){
+    require_once('./Controller/EditProfileController.php');
+    EditProfileController::show();
+});
+Route::post('/edit-profile', function(){
+    require_once('./Controller/EditProfileController.php');
+    EditProfileController::show();
+});
+
+
+
 
 
 

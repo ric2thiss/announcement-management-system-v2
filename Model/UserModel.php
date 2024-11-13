@@ -152,6 +152,35 @@ class Users extends Database {
         }
     }
 
+    public function UpdateUser(){
+        $conn = $this->Connect();
+        $stmt = $conn->prepare("UPDATE users 
+                                SET first_name = :firstname, 
+                                    last_name = :lastname, 
+                                    email = :email, 
+                                    contact_number = :phone, 
+                                    address_purok = :purok, 
+                                    address_barangay = :brgy, 
+                                    address_city = :city, 
+                                    address_province = :province 
+                                WHERE user_id = :id");
+    
+        $stmt->bindParam(":firstname", $_POST["firstname"]);
+        $stmt->bindParam(":lastname", $_POST["lastname"]);
+        $stmt->bindParam(":email", $_POST["email"]);
+        $stmt->bindParam(":phone", $_POST["phone"]);
+        $stmt->bindParam(":purok", $_POST["purok"]);
+        $stmt->bindParam(":brgy", $_POST["brgy"]);
+        $stmt->bindParam(":city", $_POST["city"]);
+        $stmt->bindParam(":province", $_POST["province"]);
+        $stmt->bindParam(":id", $_SESSION["user_id"]);
+    
+        $result = $stmt->execute();
+    
+        return $result;
+    }
+    
+
     public function AuthenticateUser($email, $password) {
         $conn = $this->Connect();
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
