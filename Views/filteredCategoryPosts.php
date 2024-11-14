@@ -116,7 +116,7 @@
                     </div>
                     <h4 class="font-bold text-lg mt-4"><?=$post["post_title"]?> 🎉</h4>
                     <div class="text-gray-700 mt-2"><?=$post["post_content"]?></div>
-                    <div class="my-5 p-2"><img src="../<?=$post["images"]?>" alt="Image"></div>
+                    <div class="my-5 p-2"><img src="../<?=$post["images"]?>" onclick="viewImage('<?= '../'.$post['images'] ?>')" alt="Image"></div>
                     <div class="flex items-center space-x-4 mt-4">
                         <button class="text-blue-500" id="like" data-postId="<?=$post["post_id"]?>" onclick="likeFunction(this)"><i class="fa-solid fa-thumbs-up"></i> Like</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
@@ -128,8 +128,35 @@
             </div>
         </section>
     </main>
-
+    
+    <style>
+        ::backdrop {
+        backdrop-filter: blur(5px);
+        /* opacity: 0.75; */
+        }
+    </style>
+    <dialog class="p-2">
+        <button autofocus class="border-0 px-3 py-1 bg-yellow-500 rounded" style="position:absolute;right:1%;"><i class="fa-solid fa-x rounded text-md"></i></button>
+        <div id="imgContainer"></div>
+    </dialog>
     <script>
+    const dialog = document.querySelector("dialog");
+    const closeButton = document.querySelector("dialog button");
+   
+    // "Close" button closes the dialog
+    closeButton.addEventListener("click", () => {
+        let imgContainer = document.getElementById('imgContainer');
+        imgContainer.innerHTML = '';
+        dialog.close();
+    });
+    function viewImage(param){
+        let imgContainer = document.getElementById('imgContainer');
+        let img = document.createElement('img');
+        img.src = param;
+        imgContainer.appendChild(img);
+        dialog.showModal();
+        console.log(param)
+    }
 
     // async function get_like_counts(element) {
     //     const likeBtn = element.getAttribute("data-postId");
