@@ -16,7 +16,7 @@ class AnnouncementController extends Users{
             $category_id = $_POST["category_id"];
             if(empty($post_title)||empty($post_content)||empty($post_when)||empty($category_id)){
                 echo "Please fill in all fields.";
-            }else if(!getimagesize($_FILES["fileToUpload"]["tmp_name"]) || $_FILES["fileToUpload"]["size"] > 500000){
+            }else if(!getimagesize($_FILES["fileToUpload"]["tmp_name"]) || $_FILES["fileToUpload"]["size"] > 1500000){
                 echo "Please upload only image or too large";
             }else{
                 $userModel = new Users();

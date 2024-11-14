@@ -52,7 +52,7 @@
             <a href="./calendar" class="text-gray-500"><i class="fa-solid fa-calendar-days text-xl"></i></a>
             <a href="./chat" class="text-gray-500"><i class="fa-solid fa-comments text-xl"></i></a>
             <a href="./department" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
-            <a href="./status" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
+            <a href="./post/admin" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
             <a href="./dashboard" class="text-white"><i class="fa-solid fa-user text-xl"></i></a>
         </aside>
 
@@ -90,7 +90,7 @@
                 <!-- Dashboard feature -->
                  <div class="rounded-lg flex space-x-8">
                     <!-- Total Posts -->
-                    <a href="./post/active"  class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
+                    <a href="./post/admin"  class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
                         <div>
                             <h2 class="text-xl text-center font-bold mb-4">Active</h2>
                             <p class="text-center text-xl" id="post-count"><?=$activePostNumber?></p>

@@ -68,7 +68,7 @@
                
                 <!-- Account Profile -->
                 <div class="bg-white p-6 rounded-lg shadow mb-8">
-                    <h2 class="text-xl font-bold mb-4">Profile</h2>
+                    <h2 class="text-xl font-bold mb-4">Edit Profile</h2>
                     <div class="flex items-center space-x-4 ">  
                         <img src="<?= $userData["photo"]?>" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">

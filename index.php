@@ -72,8 +72,9 @@ Route::get('/posts/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::open_pinned_post($id);  
 });
-Route::get('/post/active', function(){
-    View::render("active");
+Route::get('/post/admin', function(){
+    require_once('./Controller/AdminDashboardController.php');
+    AdminDashboardController::show();
 });
 Route::get('/scheduledpost/{id}', function($id) {
     require_once('./Controller/UsersController.php');
