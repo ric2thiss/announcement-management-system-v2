@@ -70,7 +70,7 @@
                 <div class="bg-white p-6 rounded-lg shadow mb-8">
                     <h2 class="text-xl font-bold mb-4">Profile</h2>
                     <div class="flex items-center space-x-4 ">  
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-20 h-20 rounded-full">
+                        <img src="<?=$userData["photo"]?>" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">
                             <div>
                                 <h3 class="font-bold" id="user-name"><?php echo $userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"]; ?></h3>
@@ -107,7 +107,7 @@
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
-                                    <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <img src="<?=$pinned_post["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
                                         <h3 class="font-bold"><?=$pinned_post["first_name"]?> <?=$pinned_post["last_name"]?></h3>
                                         <span class="text-gray-500">Pinned</span>

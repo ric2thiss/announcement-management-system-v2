@@ -42,7 +42,7 @@
             </button>
             <button class="text-gray-300"><i class="fa-solid fa-magnifying-glass"></i></button>
             <button class="text-gray-300"><i class="fa-solid fa-bell"></i></button>
-            <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+            <img src="<?=$userData["photo"]?>" alt="Profile" class="w-10 h-10 rounded-full">
         </div>
     </header>
 
@@ -85,7 +85,7 @@
             <div class="flex-1 overflow-y-auto h-100vh">
                 <div class="bg-white p-6 rounded-lg shadow mb-8">
                     <div class="flex items-center space-x-4">
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="<?=$userData["photo"]?>" alt="Profile" class="w-10 h-10 rounded-full">
                         <input type="text" placeholder="What's on your mind?" class="flex-1 bg-gray-100 p-2 rounded">
                         <div class="flex space-x-2">
                             <button class="bg-gray-100 p-2 rounded"><i class="fa-solid fa-photo-film"></i></button>
