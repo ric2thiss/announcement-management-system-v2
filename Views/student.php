@@ -158,7 +158,7 @@
                             </p>
                             <p class="p-2">General</p>
                             <?php foreach($postCategories as $postCategory): ?>
-                                <a href="<?=$postCategory["category_id"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
+                                <a href="./category/<?=$postCategory["category_name"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
                             <?php endforeach; ?>
                         </div>
                     </div>

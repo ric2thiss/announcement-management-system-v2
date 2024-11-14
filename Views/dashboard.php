@@ -66,7 +66,7 @@
                 <div class="bg-white p-6 rounded-lg shadow mb-8">
                     <h2 class="text-xl font-bold mb-4">Profile</h2>
                     <div class="flex items-center space-x-4 ">  
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-20 h-20 rounded-full">
+                        <img src="<?= $userData["photo"]?>" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">
                             <div>
                                 <h3 class="font-bold" id="user-name"><?php echo $userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"]; ?></h3>
@@ -143,7 +143,7 @@
                             </div>
                             
                             <div class="flex flex-col">
-                                <label for="fileToUpload" class="mb-2 font-medium text-gray-700">w:</label>
+                                <label for="fileToUpload" class="mb-2 font-medium text-gray-700">Image:</label>
                                 <input type="file"  name="fileToUpload" id="fileToUpload" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Where'">
                             </div>
                             
@@ -175,7 +175,7 @@
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
-                                    <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <img src="<?=$pinnedPost["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
                                         <h3 class="font-bold"><a href="./user/<?=$pinnedPost["user_id"]?>"><?=$pinnedPost["first_name"]?> <?=$pinnedPost["last_name"]?></a></h3>
                                         <span class="text-gray-500">Pinned</span>
@@ -196,7 +196,7 @@
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
-                                    <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <img src="<?=$scheduledPost["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
                                         <h3 class="font-bold"><?=$scheduledPost["first_name"]?> <?=$scheduledPost["last_name"]?></h3>
                                         <span class="text-gray-500">To be post on <?=$scheduledPost["month_name"]?> <?=$scheduledPost["date_only"]?></span>

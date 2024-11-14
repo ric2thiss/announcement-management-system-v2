@@ -32,7 +32,7 @@ class Users extends Database {
     
     public function getPinnedPost() {
         $conn = $this->Connect();
-        $stmt = $conn->prepare("SELECT pp.*, p.*,u.first_name, u.last_name, u.user_id
+        $stmt = $conn->prepare("SELECT pp.*, p.*,u.*, u.user_id
                                 FROM posts p
                                 INNER JOIN pinned_posts pp ON p.post_id = pp.post_id
                                 INNER JOIN users u ON p.user_id = u.user_id
@@ -152,7 +152,7 @@ class Users extends Database {
         }
     }
 
-    public function UpdateUser(){
+    public function UpdateUser($photo){
         $conn = $this->Connect();
         $stmt = $conn->prepare("UPDATE users 
                                 SET first_name = :firstname, 
@@ -162,7 +162,8 @@ class Users extends Database {
                                     address_purok = :purok, 
                                     address_barangay = :brgy, 
                                     address_city = :city, 
-                                    address_province = :province 
+                                    address_province = :province,
+                                    photo = :photo
                                 WHERE user_id = :id");
     
         $stmt->bindParam(":firstname", $_POST["firstname"]);
@@ -174,6 +175,7 @@ class Users extends Database {
         $stmt->bindParam(":city", $_POST["city"]);
         $stmt->bindParam(":province", $_POST["province"]);
         $stmt->bindParam(":id", $_SESSION["user_id"]);
+        $stmt->bindParam(":photo", $photo);
     
         $result = $stmt->execute();
     

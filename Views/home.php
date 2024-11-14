@@ -74,7 +74,7 @@
                         </p>
                         <p class="p-2">General</p>
                         <?php foreach($postCategories as $postCategory): ?>
-                            <a href="<?=$postCategory["category_id"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
+                            <a href="./category/<?=$postCategory["category_name"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
                     <div class="flex items-center space-x-4 justify-between">
                         <div class="flex items-center space-x-4">
-                            <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                            <img src="<?=$post["photo"]?>" alt="Profile" class="w-10 h-10 rounded-full">
                             <div>
                                 <h3 class="font-bold"><a href="./user/<?=$post["user_id"]?>"><?=$post["first_name"]?> <?=$post["last_name"]?></a></h3>
                                 <p class="text-gray-500"><?=$post["role_name"]?> · <?=$post["month"]?> <?=$post["date"]?>, <?=$post["time"]?></p>
@@ -115,7 +115,7 @@
                     </div>
                     <h4 class="font-bold text-lg mt-4"><?=$post["post_title"]?> 🎉</h4>
                     <div class="text-gray-700 mt-2"><?=$post["post_content"]?></div>
-                    <div class="my-5 p-2"><img src="<?=$post["images"]?>" alt="Image"></div>
+                    <div class="my-5 p-2"><img src="<?=$post["images"]?>" onclick="viewImage('<?= $post['images'] ?>')" alt="Image"></div>
                     <div class="flex items-center space-x-4 mt-4">
                         <button class="text-blue-500" id="like" data-postId="<?=$post["post_id"]?>" onclick="likeFunction(this)"><i class="fa-solid fa-thumbs-up"></i> Like</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
@@ -135,7 +135,7 @@
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
-                                    <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <img src="<?=$pinnedPost["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
                                         <h3 class="font-bold"><a href="./user/<?=$pinnedPost["user_id"]?>"><?=$pinnedPost["first_name"]?> <?=$pinnedPost["last_name"]?></a></h3>
                                         <span class="text-gray-500">Pinned</span>
@@ -151,9 +151,38 @@
             </div>
         </section>
     </main>
+    <style>
+        ::backdrop {
+        backdrop-filter: blur(5px);
+        /* opacity: 0.75; */
+        }
+    </style>
+    <dialog class="p-2">
+        <button autofocus class="border-0 px-3 py-1 bg-yellow-500 rounded" style="position:absolute;right:1%;"><i class="fa-solid fa-x rounded text-md"></i></button>
+        <div id="imgContainer"></div>
+    </dialog>
+    
+
+    
 
     <script>
-
+    const dialog = document.querySelector("dialog");
+    const closeButton = document.querySelector("dialog button");
+   
+    // "Close" button closes the dialog
+    closeButton.addEventListener("click", () => {
+        let imgContainer = document.getElementById('imgContainer');
+        imgContainer.innerHTML = '';
+        dialog.close();
+    });
+    function viewImage(param){
+        let imgContainer = document.getElementById('imgContainer');
+        let img = document.createElement('img');
+        img.src = param;
+        imgContainer.appendChild(img);
+        dialog.showModal();
+        console.log(param)
+    }
     // async function get_like_counts(element) {
     //     const likeBtn = element.getAttribute("data-postId");
     //     try {
@@ -178,7 +207,7 @@
     console.log("Post ID:", postId);
     
     try {
-        const res = await fetch("http://localhost/announcement-management-system/ams/engagement/pin", {
+        const res = await fetch("./engagement/pin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -216,7 +245,7 @@
         let postId = element.getAttribute('data-postId');
         
         try {
-            const res = await fetch("http://localhost/announcement-management-system/ams/engagement/like", {
+            const res = await fetch("./engagement/like", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -242,6 +271,7 @@
             console.error("Error", error);
         }
     }
+
 
 
     </script>

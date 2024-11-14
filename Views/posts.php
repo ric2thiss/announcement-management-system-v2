@@ -66,7 +66,7 @@
                 <!-- Example of Announcement Post -->
                 <div class="bg-white mx-auto w-1/2 p-6 rounded-lg shadow mb-6">
                     <div class="flex items-center space-x-4">
-                        <img src="../assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="../<?=$pinned_posts["photo"]?>" alt="Profile" class="w-10 h-10 rounded-full">
                         <div>
                             <h3 class="font-bold"><a href="../user/<?=$pinned_posts["user_id"]?>"><?=$pinned_posts["first_name"]?> <?=$pinned_posts["last_name"]?></a></h3>
                             <p class="text-gray-500"><?=$pinned_posts["role_name"]?> · <?=$pinned_posts["month_name"]?> <?=$pinned_posts["date_only"]?>, <?=$pinned_posts["time_only"]?></p>
@@ -74,7 +74,7 @@
                     </div>
                     <h4 class="font-bold text-lg mt-4"><?=$pinned_posts["post_title"]?> 🎉</h4>
                     <div class="text-gray-700 mt-2"><?=$pinned_posts["post_content"]?></div>
-                    <div class="my-5 p-2"><img src="../<?=$pinned_posts["images"]?>" alt="Image"></div>
+                    <div class="my-5 p-2"><img src="../<?=$pinned_posts["images"]?>" onclick="viewImage('<?= '../'.$pinned_posts['images'] ?>')" alt="Image"></div>
                     <div class="flex items-center space-x-4 mt-4">
                         <button class="text-blue-500"><i class="fa-solid fa-thumbs-up"></i> React</button>
                         <button class="text-blue-500"><i class="fa-solid fa-comment"></i> Comment</button>
@@ -87,5 +87,34 @@
             <!-- Pinned Announcement Section (Sticky) -->
         </section>
     </main>
+    <style>
+        ::backdrop {
+        backdrop-filter: blur(5px);
+        /* opacity: 0.75; */
+        }
+    </style>
+    <dialog class="p-2">
+        <button autofocus class="border-0 px-3 py-1 bg-yellow-500 rounded" style="position:absolute;right:1%;"><i class="fa-solid fa-x rounded text-md"></i></button>
+        <div id="imgContainer"></div>
+    </dialog>
+    <script>
+            const dialog = document.querySelector("dialog");
+    const closeButton = document.querySelector("dialog button");
+   
+    // "Close" button closes the dialog
+    closeButton.addEventListener("click", () => {
+        let imgContainer = document.getElementById('imgContainer');
+        imgContainer.innerHTML = '';
+        dialog.close();
+    });
+    function viewImage(param){
+        let imgContainer = document.getElementById('imgContainer');
+        let img = document.createElement('img');
+        img.src = param;
+        imgContainer.appendChild(img);
+        dialog.showModal();
+        console.log(param)
+    }
+    </script>
 </body>
 </html>

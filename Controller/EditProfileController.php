@@ -11,14 +11,19 @@ class EditProfileController extends Users{
         View::render('edit-profile', ["userData"=>$userData]);
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
-            if(!$userModel->UpdateUser()){
-                echo "<script>alert('Something went wrong!')</script>";
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["profile"]["name"]);
+            if(move_uploaded_file($_FILES["profile"]["tmp_name"], $target_file)){
+                if(!$userModel->UpdateUser($target_file)){
+                    echo "<script>alert('Something went wrong!')</script>";
+                }else{
+                    echo "<script>
+                    alert('Updated Successfully!')
+                    window.location.href = './edit-profile'
+                    </script>";
+                }
             }else{
-                // alert('Updated Successfully!')
-                echo "<script>
-
-                window.location.href = './edit-profile'
-                </script>";
+                echo "<script>alert('Something went wrong during uploading file!')</script>";
             }
         }
 

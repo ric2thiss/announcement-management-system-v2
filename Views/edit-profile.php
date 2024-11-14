@@ -70,7 +70,7 @@
                 <div class="bg-white p-6 rounded-lg shadow mb-8">
                     <h2 class="text-xl font-bold mb-4">Profile</h2>
                     <div class="flex items-center space-x-4 ">  
-                        <img src="./assets/profile.jpg" alt="Profile" class="w-20 h-20 rounded-full">
+                        <img src="<?= $userData["photo"]?>" alt="Profile" class="w-20 h-20 rounded-full">
                         <div class="flex justify-between size-full">
                             <div>
                                 <h3 class="font-bold" id="user-name"><?php echo $userData["first_name"] . " " . $userData["middle_initial"] . ". " . $userData["last_name"]; ?></h3>
@@ -80,10 +80,17 @@
                     </div>
                     <hr class="mt-5">
 
-                    <form action="./edit-profile" method="POST" class="w-full max-w-lg mx-auto mt-8">
+                    <form action="./edit-profile" method="POST" enctype="multipart/form-data" class="w-full max-w-lg mx-auto mt-8">
                         <!-- Form Section 1 -->
                         <div class="flex flex-col space-y-6">
                             <!-- Name Field -->
+                             <div class="profile flex space-x-5">
+                                <img src="<?= $userData["photo"]?>" alt="" class="w-20 h-20 rounded-full">
+                                <div>
+                                    <label for="profile" class="block text-sm font-medium text-gray-700">Change Profile</label>
+                                    <input type="file" id="profile" name="profile">
+                                </div>
+                             </div>
                             <div class="flex justify-between gap-2">
                                 <div class="flex-auto">
                                     <label for="firstname" class="block text-sm font-medium text-gray-700">First Name</label>
