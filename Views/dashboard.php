@@ -179,6 +179,9 @@
                 <div class="sticky top-24">
                     <div class="bg-white p-6 rounded-lg mb-8 shadow">
                         <h2 class="text-xl font-bold mb-4">Pinned Announcement</h2>
+                        <?php if($pinnedPosts == null):?>
+                        <p>No Pinned Post</p>
+                        <?php endif ?>
                         <?php foreach($pinnedPosts as $pinnedPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->

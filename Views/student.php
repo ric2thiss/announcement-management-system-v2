@@ -103,6 +103,9 @@
                     <div class="bg-white p-6 rounded-lg mb-8 shadow">
                         <h2 class="text-xl font-bold mb-4">My Pinned</h2>
                         <div class="space-y-4">
+                        <?php if($get_users_pinned_posts == null):?>
+                            <p>You did not pin any post</p>
+                        <?php endif ?>
                             <?php foreach($get_users_pinned_posts as $pinned_post): ?>
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 rounded-lg">
@@ -156,7 +159,9 @@
                             <p class="bg-gray-100 p-4 rounded-lg flex justify-between">
                                 All Announcement <span><?=count($postCategories)?></span>
                             </p>
-                            <p class="p-2">General</p>
+                            <?php if($postCategories == null):?>
+                                <p>No Categories</p>
+                            <?php endif ?>
                             <?php foreach($postCategories as $postCategory): ?>
                                 <a href="./category/<?=$postCategory["category_name"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
                             <?php endforeach; ?>

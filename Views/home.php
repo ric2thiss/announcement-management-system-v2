@@ -72,7 +72,6 @@
                         <p class="bg-gray-100 p-4 rounded-lg flex justify-between">
                             All Announcement <span><?=count($postCategories)?></span>
                         </p>
-                        <p class="p-2">General</p>
                         <?php foreach($postCategories as $postCategory): ?>
                             <a href="./category/<?=$postCategory["category_name"]?>"><p class="p-2 hover:bg-gray-100 p-4 rounded-lg flex justify-between"><?=$postCategory["category_name"]?></p></a>
                         <?php endforeach; ?>
@@ -130,6 +129,9 @@
             <div class="w-1/4">
                 <div class="bg-white p-6 rounded-lg shadow sticky top-24">
                     <h2 class="text-xl font-bold mb-4">Pinned Announcement</h2>
+                    <?php if($pinnedPosts == null):?>
+                        <p>No Scheduled Post</p>
+                    <?php endif ?>
                     <?php foreach($pinnedPosts as $pinnedPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->

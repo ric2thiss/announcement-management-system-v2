@@ -521,6 +521,15 @@ class Users extends Database {
         $result = $stmt->execute();
         return $result;
     }
+
+    public static function DeletePost(){
+        $db = new Database();
+        $conn = $db->Connect();
+        $stmt = $conn->prepare("DELETE FROM posts WHERE post_id = :post_id");
+        $stmt->bindParam(":post_id", $_GET["id"]);
+        $result = $stmt->execute();
+        return $result;
+    }
     
         
     

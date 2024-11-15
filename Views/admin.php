@@ -129,9 +129,9 @@
                                     <i class="text-blue-500 text-base fa-solid fa-pen-to-square"></i>
                                 </button>
 
-                                        <button type="submit" class="p-2" name="delete" href="<?=$user["post_id"]?>">
+                                        <a class="p-2" href="./admin?id=<?=$user["post_id"]?>">
                                             <i class="text-red-500 text-base fa-solid fa-trash-can-arrow-up"></i>
-                                        </button>
+                                        </a>
                                         <a class="p-2" href="../posts/<?=$user["post_id"]?>">
                                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                         </a>
@@ -162,6 +162,9 @@
                 <div class="sticky top-24">
                 <div class="bg-white p-6 rounded-lg mb-8 shadow">
                         <h2 class="text-xl font-bold mb-4">Pinned Announcement</h2>
+                        <?php if($pinnedPosts == null):?>
+                        <p>No Pinned Post</p>
+                        <?php endif ?>
                         <?php foreach($pinnedPosts as $pinnedPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->

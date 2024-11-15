@@ -9,6 +9,14 @@ class AdminDashboardController extends Users {
         $userData = $userModel->getUserById($_SESSION['user_id']);
         $allPosts = Users::getAllPosts();
 
+        // if($_SERVER["REQUEST_METHOD"] == "GET"){
+        //     // Delete a data
+        //     if(isset($_GET['post_id'])){
+        //         $post_id = $_GET['post_id'];
+        //         $postModel = new Posts();
+
+        // }
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $currentImage = $_POST["currentImage"];
             // Check if a new file was uploaded
@@ -35,7 +43,20 @@ class AdminDashboardController extends Users {
                 echo "<script>alert('Something went wrong while updating the post!');</script>";
                 echo "<script>window.location.href = './admin';</script>";
             }
+        }else{
+            
+            if(isset($_GET['id'])){
+                if(Users::DeletePost()){
+                    echo "<script>alert('Post deleted successfully!');</script>";
+                    echo "<script>window.location.href = './admin';</script>";
+                }else{
+                    echo "<script>alert('Something went wrong while deleting the post!');</script>";
+                    echo "<script>window.location.href = './admin';</script>";
+                }
+            }
         }
+
+
         
         
 
