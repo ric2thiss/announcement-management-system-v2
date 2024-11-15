@@ -57,7 +57,7 @@
             <!-- Announcement Feed Section (Scrollable) -->
             <!-- h-[calc(100vh-10rem)] -->
             <div class="flex-1 overflow-y-auto h-100vh">
-            <h2 class="text-2xl font-bold mb-4">Posts Information PS: table pa  ang ni work</h2>
+            <h2 class="text-2xl font-bold mb-4">Posts Information</h2>
             <hr class="my-5">
                 <!-- Dashboard feature -->
                  <div class="rounded-lg flex space-x-8">
@@ -84,7 +84,11 @@
                  </div>
                  <!-- Calendar -->
                  <div class="bg-white p-6 rounded-lg shadow mb-8">
-                    <h2 class="text-xl font-bold mb-4">Posts</h2>
+                    <div class="flex gap-4 items-center">
+                        <h2 class="text-2xl font-bold mb-4">Posts</h2>
+                        <a href="../dashboard" class="my-2 px-3 py-2 cursor-pointer bg-blue-500 text-white 
+                        font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out">Create Post</a>
+                    </div>
                     <table id="myTable" class="display">
                         <thead>
                             <tr>
