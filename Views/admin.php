@@ -36,7 +36,7 @@
             </button>
             <button class="text-gray-300"><i class="fa-solid fa-magnifying-glass"></i></button>
             <button class="text-gray-300"><i class="fa-solid fa-bell"></i></button>
-            <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+            <img src="../<?=$user["photo"]?>" alt="Profile" class="w-10 h-10 rounded-full">
         </div>
     </header>
 
@@ -84,7 +84,7 @@
                  </div>
                  <!-- Calendar -->
                  <div class="bg-white p-6 rounded-lg shadow mb-8">
-                    <h2 class="text-xl font-bold mb-4">Scheduled Posts</h2>
+                    <h2 class="text-xl font-bold mb-4">Posts</h2>
                     <table id="myTable" class="display">
                         <thead>
                             <tr>
@@ -111,7 +111,7 @@
                                 <td><?=$user["category_name"]?></td>
                                 <td><?=$user["month"]?> <?=$user["date"]?>, <?=$user["time"]?></td>
                                 <td>
-                                        <button type="submit" class="p-2" name="update"  onclick="openForm(<?=$user['post_id']?>, '<?=$user['first_name']?>', '<?=$user['last_name']?>', '<?=$user['post_title']?>', '<?=$user['post_content']?>', '<?=$user['post_when']?>', '<?=$user['category_name']?>')"
+                                        <button type="submit" class="p-2" name="update"  onclick="openForm(<?=$user['post_id']?>, '<?=$user['first_name']?>', '<?=$user['last_name']?>', '<?=$user['post_title']?>', '<?=$user['post_content']?>', '<?=$user['post_when']?>', '<?=$user['category_name']?>','<?=$user['images']?>')"
                                         >
                                             <i class="text-blue-500 text-base fa-solid fa-pen-to-square"></i>
                                         </button>
@@ -197,33 +197,53 @@
     }
     </style>
 
-    <dialog>
+    <dialog class="p-5">
     <button autofocus>Close</button>
-        <form action="">
-            <div>
-                <label for="">First Name</label>
-                <input type="text" id="fname">
+        <form id="myForm" action="./admin" method="POST" enctype="multipart/form-data" class="px-10 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+            <input type="text" id="post_id" name="post_id" style="display: none;">
+                <div class="flex flex-col">
+                    <label for="post_title" class="mb-2 font-medium text-gray-700">Title:</label>
+                    <input type="text" id="post_title" name="post_title" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'What'">
+                </div>
+                
+                <div class="flex flex-col">
+                    <label for="category_id" class="mb-2 font-medium text-gray-700">Category :</label>
+                    <!-- <input type="text" id="who" name="post_who" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Who'"> -->
+                    <select id="category_id" name="category_id" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                        <option value="">Select Category</option>
+                            <!-- <option value="male">Male</option>
+                            <option value="female">Female</option> -->
+                            <?php foreach ($postCategories as $postCategory): ?>
+                                <option value="<?= htmlspecialchars($postCategory['category_id']) ?>">
+                                    <?= htmlspecialchars($postCategory['category_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                </div>
+                
+                <div class="flex flex-col">
+                    <label for="fileToUpload" class="mb-2 font-medium text-gray-700">Image:</label>
+                    <input type="file"  name="fileToUpload" id="fileToUpload" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'Where'">
+                </div>
+                
+                <div class="flex flex-col">
+                    <label for="post_when" class="mb-2 font-medium text-gray-700">To be posted on :</label>
+                    <input type="date" id="post_when" name="post_when" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter the 'When'">
+                </div>
             </div>
+
+            <!-- Create the editor container -->
+            <textarea name="post_content" id="post_content" class="p-2" style="width: 100%; border:1px solid gray;"></textarea>
+            <!-- <div id="editor">
+            
+            </div> -->
+            <br>
             <div>
-                <label for="">Last Name</label>
-                <input type="text" id="lname">
+                <img src="" alt="" id="previewImg" width="20%">
+                <input type="text" name="currentImage" id="currentImage">
             </div>
-            <div>
-                <label for="">Title</label>
-                <input type="text" id="title">
-            </div>
-            <div>
-                <label for="">Description</label>
-                <input type="text" id="content">
-            </div>
-            <div>
-                <label for="">Schedule</label>
-                <input type="text" id="sched">
-            </div>
-            <div>
-                <label for="">Category</label>
-                <input type="text" id="category">
-            </div>
+            <input name="submit" type="submit"  value="Post" id="post" class="my-3 px-5 py-2 cursor-pointer bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out">
         </form>
     </dialog>
     
@@ -240,21 +260,16 @@
 
 
         const dialog = document.querySelector("dialog");
-        // const showButton = document.querySelector("dialog + button");
         const closeButton = document.querySelector("dialog button");
 
-        // "Show the dialog" button opens the dialog modally
-        // showButton.addEventListener("click", () => {
-        // dialog.showModal();
-        // });
-        function openForm(id, fname, lname, title, content, sched, category){
+        function openForm(id, fname, lname, title, content, sched, category, image){
             dialog.showModal();
-            document.getElementById("fname").value = fname;
-            document.getElementById("lname").value = lname;
-            document.getElementById("title").value = title;
-            document.getElementById("content").value = content;
-            document.getElementById("sched").value = sched;
-            document.getElementById("category").value = category;
+            document.getElementById("post_id").value = id;
+            document.getElementById("post_title").value = title;
+            document.getElementById("post_content").value = content;
+            document.getElementById("post_when").value = sched;
+            document.getElementById("previewImg").src = `../${image}`;
+            document.getElementById('currentImage').value = image;
 
             
         }

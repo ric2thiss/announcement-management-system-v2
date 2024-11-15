@@ -40,7 +40,7 @@
             </button>
             <button class="text-gray-300"><i class="fa-solid fa-magnifying-glass"></i></button>
             <button class="text-gray-300"><i class="fa-solid fa-bell"></i></button>
-            <img src="./assets/profile.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+            <img src="<?= $userData["photo"]?>" alt="Profile" class="w-10 h-10 rounded-full">
         </div>
     </header>
 

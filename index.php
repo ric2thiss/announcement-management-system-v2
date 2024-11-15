@@ -76,6 +76,10 @@ Route::get('/post/admin', function(){
     require_once('./Controller/AdminDashboardController.php');
     AdminDashboardController::show();
 });
+Route::post('/post/admin', function(){
+    require_once('./Controller/AdminDashboardController.php');
+    AdminDashboardController::show();
+});
 Route::get('/scheduledpost/{id}', function($id) {
     require_once('./Controller/UsersController.php');
     UsersController::open_scheduled_post($id);  

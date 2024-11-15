@@ -7,17 +7,45 @@ class AdminDashboardController extends Users {
 
         $userModel = new Users();
         $userData = $userModel->getUserById($_SESSION['user_id']);
+        $allPosts = Users::getAllPosts();
 
-        if(isset($_GET["update"]) && $_SERVER["REQUEST_METHOD"] == "GET"){
-            
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $currentImage = $_POST["currentImage"];
+            // Check if a new file was uploaded
+            if (!empty($_FILES["fileToUpload"]["tmp_name"])) {
+                $target_dir = "uploads/";
+                $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        
+                // Attempt to move the uploaded file
+                if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                    echo "<script>alert('Something went wrong during file upload!');</script>";
+                    return;
+                }
+                
+                // If the file upload was successful, set $currentImage to the new file path
+                $currentImage = $target_file;
+            }
+        
+            // Update the post and handle success or failure
+            if ($userModel->UpdatePost($currentImage)) {
+                echo "<script>alert('Post updated successfully!');</script>";
+                // Redirect after successful update
+                echo "<script>window.location.href = './admin';</script>";
+            } else {
+                echo "<script>alert('Something went wrong while updating the post!');</script>";
+                echo "<script>window.location.href = './admin';</script>";
+            }
         }
+        
+        
 
         // Check for the user's role
         if (strpos($userData["role_name"], "Admin") !== false) {
             $postModel = new Users(); 
 
             View::render('admin', [
-                "userData" => Users::getAllPosts(),
+                "user" => $userData,
+                "userData" => $allPosts,
                 "postCategories" => $postModel->getCategories(),
                 "pinnedPosts" => $postModel->getPinnedPost(),
                 "scheduledPosts" => $postModel->getScheduledpost(),
