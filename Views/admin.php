@@ -57,7 +57,7 @@
             <!-- Announcement Feed Section (Scrollable) -->
             <!-- h-[calc(100vh-10rem)] -->
             <div class="flex-1 overflow-y-auto h-100vh">
-            <h2 class="text-2xl font-bold mb-4">Posts Information</h2>
+            <h2 class="text-2xl font-bold mb-4">Posts Information PS: table pa  ang ni work</h2>
             <hr class="my-5">
                 <!-- Dashboard feature -->
                  <div class="rounded-lg flex space-x-8">
@@ -243,7 +243,7 @@
                 <img src="" alt="" id="previewImg" width="20%">
                 <input type="text" name="currentImage" id="currentImage">
             </div>
-            <input name="submit" type="submit"  value="Post" id="post" class="my-3 px-5 py-2 cursor-pointer bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out">
+            <input name="update" type="submit"  value="Post" id="post" class="my-3 px-5 py-2 cursor-pointer bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out">
         </form>
     </dialog>
     
