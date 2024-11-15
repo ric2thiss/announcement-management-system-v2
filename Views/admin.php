@@ -89,8 +89,8 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Department</th>
-                                <th>Program</th>
+                                <th>Title</th>
+                                <th>Role</th>
                                 <th>Category</th>
                                 <th>Posted Date</th>
                                 <th>Action</th>
@@ -106,15 +106,29 @@
                             <?php foreach($userData as $user):?>
                             <tr>
                                 <td><?=$user["first_name"]?> <?=$user["last_name"]?></td>
-                                <td><?=$user["department_name"]?></td>
-                                <td><?=$user["program_name"]?></td>
+                                <td><?=$user["post_title"]?></td>
+                                <td><?=$user["role_name"]?></td>
                                 <td><?=$user["category_name"]?></td>
                                 <td><?=$user["month"]?> <?=$user["date"]?>, <?=$user["time"]?></td>
                                 <td>
-                                        <button type="submit" class="p-2" name="update"  onclick="openForm(<?=$user['post_id']?>, '<?=$user['first_name']?>', '<?=$user['last_name']?>', '<?=$user['post_title']?>', '<?=$user['post_content']?>', '<?=$user['post_when']?>', '<?=$user['category_name']?>','<?=$user['images']?>')"
-                                        >
-                                            <i class="text-blue-500 text-base fa-solid fa-pen-to-square"></i>
-                                        </button>
+                                <button 
+                                    type="submit" 
+                                    class="p-2" 
+                                    name="update" 
+                                    onclick="openForm(
+                                        <?= htmlspecialchars(json_encode($user['post_id'])) ?>, 
+                                        <?= htmlspecialchars(json_encode($user['first_name'])) ?>, 
+                                        <?= htmlspecialchars(json_encode($user['last_name'])) ?>, 
+                                        <?= htmlspecialchars(json_encode($user['post_title'])) ?>, 
+                                        <?= htmlspecialchars(json_encode($user['post_content'])) ?>, 
+                                        <?= htmlspecialchars(json_encode($user['post_when'])) ?>, 
+                                        <?= htmlspecialchars(json_encode($user['category_name'])) ?>, 
+                                        <?= htmlspecialchars(json_encode($user['images'])) ?>
+                                    )"
+                                >
+                                    <i class="text-blue-500 text-base fa-solid fa-pen-to-square"></i>
+                                </button>
+
                                         <button type="submit" class="p-2" name="delete" href="<?=$user["post_id"]?>">
                                             <i class="text-red-500 text-base fa-solid fa-trash-can-arrow-up"></i>
                                         </button>
