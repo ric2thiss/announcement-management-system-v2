@@ -17,6 +17,15 @@
         a:hover{
             text-decoration: underline;
         }
+        .text-content {
+            display: -webkit-box; /* Establish a flexbox container */
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            -webkit-box-orient: vertical; /* Vertical box layout */
+            overflow: hidden; /* Hide anything that overflows */
+            text-overflow: ellipsis; /* Add ellipsis when text overflows */
+            line-height: 1.5; /* Optional: adjust for readability */
+            max-height: 4.5em; /* Adjust based on line height and line-clamp count */
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -182,7 +191,7 @@
                                     </div>
                                 </div>
                                 <h4 class="font-bold mt-4"><?=$pinnedPost["post_title"]?></h4>
-                                <p class="text-gray-700 mt-2"><?=$pinnedPost["post_content"]?></p>
+                                <p class="text-gray-700 mt-2 text-content text-ellipsis overflow-hidden ..."><?=$pinnedPost["post_content"]?></p>
                                 <a href="./posts/<?=$pinnedPost["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
@@ -191,6 +200,9 @@
                     <!-- Scheduled Post Section -->
                     <div class="bg-white p-6 rounded-lg shadow">
                         <h2 class="text-xl font-bold mb-4">Scheduled Post</h2>
+                        <?php if($scheduledPosts == null):?>
+                        <p>No Scheduled Post</p>
+                        <?php endif ?>
                         <?php foreach($scheduledPosts as $scheduledPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->
@@ -203,7 +215,7 @@
                                     </div>
                                 </div>
                                 <h4 class="font-bold mt-4"><?=$scheduledPost["post_title"]?></h4>
-                                <p class="text-gray-700 mt-2"><?=$scheduledPost["post_content"]?></p>
+                                <p class="text-gray-700 mt-2 text-content"><?=$scheduledPost["post_content"]?></p>
                                 <a href="./scheduledpost/<?=$scheduledPost["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>

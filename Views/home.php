@@ -51,10 +51,10 @@
         <!-- Sidebar (Sticky) -->
         <aside class="w-16 bg-gray-900 text-white flex flex-col items-center space-y-6 py-6 sticky top-14 h-screen">
             <a href="./home" class="text-white"><i class="fa-solid fa-house text-xl"></i></a>
-            <a href="calendar.html" class="text-gray-500"><i class="fa-solid fa-calendar-days text-xl"></i></a>
-            <a href="#" class="text-gray-500"><i class="fa-solid fa-comments text-xl"></i></a>
-            <a href="department.html" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
-            <a href="#" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
+            <a href="./calendar" class="text-gray-500"><i class="fa-solid fa-calendar-days text-xl"></i></a>
+            <a href="./chat" class="text-gray-500"><i class="fa-solid fa-comments text-xl"></i></a>
+            <a href="./department" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
+            <a href="./post/admin" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
             <a href="./dashboard" class="text-gray-500"><i class="fa-solid fa-user text-xl"></i></a>
         </aside>
 

@@ -75,11 +75,11 @@
                             if($users["user_id"] == $_SESSION["user_id"]){
                                ?>
                                <div>
-                                    <a href="./edit-profile">Edit</a>
+                                    <a href="../edit-profile">Edit</a>
                                     <span class="mx-4"> | </span>
-                                    <a href="./settings">Settings</a>
+                                    <a href="../settings">Settings</a>
                                     <span class="mx-4"> | </span>
-                                    <a href="./logout">Logout</a>
+                                    <a href="../logout">Logout</a>
                                 </div>
                                <?php
                             }else{

@@ -64,7 +64,7 @@
                     <!-- Total Posts -->
                     <div class="bg-white p-6 rounded-lg flex-1 shadow mb-8">
                         <h2 class="text-xl text-center font-bold mb-4">Posted</h2>
-                        <p class="text-center text-xl">10</p>
+                        <p class="text-center text-xl"><?=$activePostNumber?></p>
                     </div>
                     <!-- Pending Posts -->
                     <div class="bg-white p-6 rounded-lg shadow flex-1 mb-8">
@@ -160,42 +160,49 @@
             <!-- Pinned Announcement Section (Sticky) -->
             <div class="w-1/4">
                 <div class="sticky top-24">
-                    <div class="bg-white p-6 rounded-lg mb-8 shadow">
+                <div class="bg-white p-6 rounded-lg mb-8 shadow">
                         <h2 class="text-xl font-bold mb-4">Pinned Announcement</h2>
+                        <?php foreach($pinnedPosts as $pinnedPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->
-                            <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
-                                    <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <img src="../<?=$pinnedPost["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
-                                        <h3 class="font-bold">Ric Charles Paquibot</h3>
+                                        <h3 class="font-bold"><a href="./user/<?=$pinnedPost["user_id"]?>"><?=$pinnedPost["first_name"]?> <?=$pinnedPost["last_name"]?></a></h3>
                                         <span class="text-gray-500">Pinned</span>
                                     </div>
                                 </div>
-                                <h4 class="font-bold mt-4">Welcome to Announcement...</h4>
-                                <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                                <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <h4 class="font-bold mt-4"><?=$pinnedPost["post_title"]?></h4>
+                                <p class="text-gray-700 mt-2"><?=$pinnedPost["post_content"]?></p>
+                                <a href="./posts/<?=$pinnedPost["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
+                        <?php endforeach ?>
                     </div>
                     <!-- Scheduled Post Section -->
                     <div class="bg-white p-6 rounded-lg shadow">
                         <h2 class="text-xl font-bold mb-4">Scheduled Post</h2>
+                        <?php if($scheduledPosts == null):?>
+                        <p>No Scheduled Post</p>
+                        <?php endif ?>
+                        <?php foreach($scheduledPosts as $scheduledPost):?>
                         <div class="space-y-4">
                             <!-- Example of Pinned Announcement -->
-                            <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
-                                    <img src="./assets/profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <img src="<?=$scheduledPost["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
-                                        <h3 class="font-bold">Ric Charles Paquibot</h3>
-                                        <span class="text-gray-500">Will be post on December 2,2024</span>
+                                        <h3 class="font-bold"><?=$scheduledPost["first_name"]?> <?=$scheduledPost["last_name"]?></h3>
+                                        <span class="text-gray-500">To be post on <?=$scheduledPost["month_name"]?> <?=$scheduledPost["date_only"]?></span>
                                     </div>
                                 </div>
-                                <h4 class="font-bold mt-4">Welcome to Announcement...</h4>
-                                <p class="text-gray-700 mt-2">Lorem ipsum dolor sit amet...</p>
-                                <a href="#" class="text-blue-500 mt-2 inline-block">View Post</a>
+                                <h4 class="font-bold mt-4"><?=$scheduledPost["post_title"]?></h4>
+                                <p class="text-gray-700 mt-2"><?=$scheduledPost["post_content"]?></p>
+                                <a href="./scheduledpost/<?=$scheduledPost["post_id"]?>" class="text-blue-500 mt-2 inline-block">View Post</a>
                             </div>
                         </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 
