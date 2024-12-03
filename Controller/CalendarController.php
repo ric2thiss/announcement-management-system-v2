@@ -4,8 +4,9 @@ require('./Model/UserModel.php');
 class CalendarController extends Users{
 
     public static function index(){
-
-        View::render('calendar');
+        $userModel = new Users();
+        $userData = $userModel->getUserById($_SESSION['user_id']);
+        View::render('calendar', ["userData" => $userData]);
     }
 
 

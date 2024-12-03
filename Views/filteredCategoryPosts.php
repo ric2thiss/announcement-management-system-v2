@@ -54,7 +54,7 @@
             <a href="#" class="text-gray-500"><i class="fa-solid fa-comments text-xl"></i></a>
             <a href="../departments" class="text-gray-500"><i class="fa-solid fa-building text-xl"></i></a>
             <a href="#" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
-            <a href="../dashboard" class="text-gray-500"><i class="fa-solid fa-user text-xl"></i></a>
+            <a href="" class="text-gray-500"><i class="fa-solid fa-user text-xl"></i></a>
         </aside>
 
         <!-- Main Content -->

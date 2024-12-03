@@ -39,7 +39,7 @@ class Category extends Users{
 
         // print_r($filteredPosts);
 
-        View::render('filteredCategoryPosts', ["filteredPosts" => $filteredPosts] );
+        View::render('filteredCategoryPosts', ["filteredPosts" => $filteredPosts, "userData" => $userModel->getUserById($_SESSION['user_id'])]);
     }
 
 }
