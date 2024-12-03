@@ -259,6 +259,11 @@ class Users extends Database {
     ");
     
         $stmtPinnedPosts->execute();
+
+        $sql = "DELETE FROM scheduled_posts WHERE schedule_date = CURDATE()";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+    
         
         // Commit the transaction
         $conn->commit();
@@ -429,7 +434,32 @@ class Users extends Database {
         return $result;
     }
     
+    public static function getAllForAdminPosts(){
+        $db = new Database();
 
+        $conn = $db->Connect();
+        $stmt = 
+                 $conn->prepare("SELECT posts.*, users.*, departments.*, programs.*, roles.*,categories.*,
+                                DATE_FORMAT(posts.created_at, '%d') AS date, 
+                                MONTHNAME(posts.created_at) AS month, 
+                                TIME_FORMAT(posts.created_at, '%h:%i %p') AS time
+                                FROM posts
+                                INNER JOIN categories ON categories.category_id = posts.category_id
+                                INNER JOIN users ON users.user_id = posts.user_id
+                                INNER JOIN departments ON users.department_id = departments.department_id
+                                INNER JOIN programs ON users.program_id = programs.program_id
+                                INNER JOIN roles ON users.role_id = roles.role_id
+                                LEFT JOIN scheduled_posts ON posts.post_id = scheduled_posts.post_id
+                                -- WHERE scheduled_posts.schedule_date IS NULL 
+                                -- OR DATE(scheduled_posts.schedule_date) <= NOW()
+                                ORDER BY posts.post_id DESC;
+;
+                                ");
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     public static function getAllPosts(){
         $db = new Database();
 
@@ -522,13 +552,48 @@ class Users extends Database {
         return $result;
     }
 
-    public static function DeletePost(){
+    public static function DeletePost() {
         $db = new Database();
         $conn = $db->Connect();
-        $stmt = $conn->prepare("DELETE FROM posts WHERE post_id = :post_id");
-        $stmt->bindParam(":post_id", $_GET["id"]);
-        $result = $stmt->execute();
-        return $result;
+    
+        try {
+            // Begin transaction
+            $conn->beginTransaction();
+            // Delete from scheduled_posts where the schedule date is today
+            $sql = "DELETE FROM scheduled_posts WHERE post_id = :post_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(":post_id", $_GET["id"], PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Delete from posts
+            $stmt = $conn->prepare("DELETE FROM posts WHERE post_id = :post_id");
+            $stmt->bindParam(":post_id", $_GET["id"], PDO::PARAM_INT);
+            $result = $stmt->execute();
+    
+            // Commit the transaction
+            $conn->commit();
+    
+            return $result;
+        } catch (PDOException $e) {
+            // Rollback transaction on error
+            $conn->rollBack();
+            throw $e;
+        }
+    }
+    
+
+   
+    public static function Get_Posts_For_Calender(){
+        try{
+            $db = new Database();
+            $conn = $db->Connect();
+            $stmt = $conn->prepare("SELECT * FROM posts"); 
+            $stmt->execute();
+            $events = $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch associative array
+            return $events;
+        }catch(PDOException $e){
+            echo "Error: " . $e->getMessage();
+        }
     }
     
         

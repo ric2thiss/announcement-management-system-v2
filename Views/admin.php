@@ -198,7 +198,7 @@
                             <!-- Example of Pinned Announcement -->
                             <div class="bg-gray-100 p-4 mb-4 rounded-lg">
                                 <div class="flex items-center space-x-4">
-                                    <img src="<?=$scheduledPost["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
+                                    <img src="../<?=$scheduledPost["photo"]?>" alt="Profile" class="w-8 h-8 rounded-full">
                                     <div>
                                         <h3 class="font-bold"><?=$scheduledPost["first_name"]?> <?=$scheduledPost["last_name"]?></h3>
                                         <span class="text-gray-500">To be post on <?=$scheduledPost["month_name"]?> <?=$scheduledPost["date_only"]?></span>

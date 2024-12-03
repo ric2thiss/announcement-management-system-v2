@@ -7,15 +7,9 @@ class AdminDashboardController extends Users {
 
         $userModel = new Users();
         $userData = $userModel->getUserById($_SESSION['user_id']);
-        $allPosts = Users::getAllPosts();
+        $allPosts = Users::getAllForAdminPosts();
 
-        // if($_SERVER["REQUEST_METHOD"] == "GET"){
-        //     // Delete a data
-        //     if(isset($_GET['post_id'])){
-        //         $post_id = $_GET['post_id'];
-        //         $postModel = new Posts();
-
-        // }
+       
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $currentImage = $_POST["currentImage"];
@@ -75,12 +69,7 @@ class AdminDashboardController extends Users {
             ]);
 
         } elseif ($userData["role_name"] == "Student") {
-            // Uncomment if there’s a student-specific view
-            // View::render('student', [
-            //     "userData" => $userData,
-            //     "postCategories" => $postModel->getCategories(),
-            //     "get_users_pinned_posts" => $postModel->get_users_pinned_posts($_SESSION["user_id"])
-            // ]);
+            
             View::render('error'); // Show an error if student view is not available
 
         } else {

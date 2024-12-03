@@ -1,5 +1,6 @@
 <?php
 require('./Model/UserModel.php');
+use Twilio\Rest\Client;
 class AnnouncementController extends Users{
 
     public static function post(){
@@ -32,6 +33,8 @@ class AnnouncementController extends Users{
                         window.location.href = './dashboard';
                         },1500);
                     </script>";
+
+                    
                 }else{
                     echo "Error creating post.";
                 }

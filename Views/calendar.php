@@ -9,7 +9,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
-
+    <style>
+        .fc-left h2{
+            font-size: 1.5rem;
+        }
+        th{
+            background-color: rgb(17, 24, 39);
+            color: #fff;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <!-- Header (Sticky) -->
@@ -46,15 +54,57 @@
             <a href="./status" class="text-gray-500"><i class="fa-solid fa-chart-line text-xl"></i></a>
             <a href="./dashboard" class="text-white"><i class="fa-solid fa-user text-xl"></i></a>
         </aside>
-
         <div class="container mx-auto p-5">
-          <div id="calendar"></div>
+            <div id="calendar"></div>
         </div>
+
     </main>
 </body>
 </html>
 <script>
-   $(document).ready(function() {
-   $('#calendar').fullCalendar();
+
+
+
+$(document).ready(function() {
+    fetch('http://localhost/announcement-management-system/ams/calendar/event-api')
+    .then(res => res.json())
+    .then(data => {
+        // Function to generate random color
+        const getRandomColor = () => {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        };
+
+        const events = data.map(event => {
+            const eventDate = new Date(event.post_when); // Convert event date to a JavaScript Date object
+            const currentDate = new Date(); // Get the current date and time
+            
+            // Determine the URL based on the event's date
+            const url = eventDate > currentDate 
+                ? `http://localhost/announcement-management-system/ams/scheduledpost/${event.post_id}` 
+                : `http://localhost/announcement-management-system/ams/posts/${event.post_id}`;
+            
+            return {
+                title: event.post_title,
+                start: event.post_when,
+                color: getRandomColor(), // Use the random color generator
+                url: url,
+            };
+        });
+
+
+        console.log(events);
+
+        $('#calendar').fullCalendar({
+            events: events
+        });
+    })
+    .catch(error => console.log('Error fetching events:', error)); // Add error handling
 });
+
+
 </script>

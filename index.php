@@ -96,7 +96,13 @@ Route::get('/engagement/{action}', function($action){
 });
 
 Route::get('/calendar', function(){
-    View::render('calendar');
+    require_once('./Controller/CalendarController.php');
+    CalendarController::index();
+});
+
+Route::get('/calendar/event-api', function(){
+    require_once('./Controller/CalendarController.php');
+    CalendarController::event_api();
 });
 
 
@@ -110,10 +116,6 @@ Route::post('/edit-profile', function(){
     require_once('./Controller/EditProfileController.php');
     EditProfileController::show();
 });
-
-
-
-
 
 
 
